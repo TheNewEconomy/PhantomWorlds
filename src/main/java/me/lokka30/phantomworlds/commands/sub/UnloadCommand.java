@@ -35,6 +35,7 @@ import java.util.Arrays;
 public class UnloadCommand {
 
   public static void onCommand(final CommandSender sender, final World world) {
+
     if(!Utils.checkWorld(sender, "command.phantomworlds.subcommands.unload.usage", world)) {
       return;
     }
@@ -49,7 +50,7 @@ public class UnloadCommand {
                         new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
                                 .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                         new MultiMessage.Placeholder("world", world.getName(), false)
-                ))).send(sender);
+                             ))).send(sender);
         return;
       }
     }
@@ -61,9 +62,9 @@ public class UnloadCommand {
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.unload.success"), Arrays.asList(
             new MultiMessage.Placeholder("prefix",
-                    PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                    true),
+                                         PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                         true),
             new MultiMessage.Placeholder("world", world.getName(), false)
-    ))).send(sender);
+                                                                                                     ))).send(sender);
   }
 }

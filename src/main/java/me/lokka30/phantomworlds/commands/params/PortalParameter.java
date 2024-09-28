@@ -45,10 +45,11 @@ public class PortalParameter extends ArgumentResolver<CommandSender, PortalType>
   }
 
   @Override
-  protected ParseResult<PortalType> parse(Invocation<CommandSender> invocation, Argument<PortalType> context, String argument) {
-    PortalType gameMode = PORTAL_ARGUMENTS.get(argument.toLowerCase());
+  protected ParseResult<PortalType> parse(final Invocation<CommandSender> invocation, final Argument<PortalType> context, final String argument) {
 
-    if (gameMode == null) {
+    final PortalType gameMode = PORTAL_ARGUMENTS.get(argument.toLowerCase());
+
+    if(gameMode == null) {
       return ParseResult.failure("Invalid portal type argument!");
     }
 
@@ -56,7 +57,8 @@ public class PortalParameter extends ArgumentResolver<CommandSender, PortalType>
   }
 
   @Override
-  public SuggestionResult suggest(Invocation<CommandSender> invocation, Argument<PortalType> argument, SuggestionContext context) {
+  public SuggestionResult suggest(final Invocation<CommandSender> invocation, final Argument<PortalType> argument, final SuggestionContext context) {
+
     return SuggestionResult.of(PORTAL_ARGUMENTS.keySet());
   }
 }

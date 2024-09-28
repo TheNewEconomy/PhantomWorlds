@@ -19,6 +19,7 @@ public class CompatibilityChecker {
    * @since v2.0.0
    */
   public void checkAll() {
+
     incompatibilities.clear();
 
     //checkPlugins();
@@ -50,7 +51,8 @@ public class CompatibilityChecker {
     public final String reason;
     public final String recommendation;
 
-    public Incompatibility(IncompatibilityType type, String reason, String recommendation) {
+    public Incompatibility(final IncompatibilityType type, final String reason, final String recommendation) {
+
       this.type = type;
       this.reason = reason;
       this.recommendation = recommendation;

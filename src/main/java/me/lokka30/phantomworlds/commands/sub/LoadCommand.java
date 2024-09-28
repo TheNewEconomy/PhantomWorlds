@@ -44,10 +44,10 @@ public class LoadCommand {
               PhantomWorlds.instance().messages.getConfig()
                       .getStringList("command.phantomworlds.usages.load"), Arrays.asList(
               new MultiMessage.Placeholder("prefix",
-                      PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                      true),
+                                           PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                           true),
               new MultiMessage.Placeholder("label", "pw", false)
-      ))).send(sender);
+                                                                                        ))).send(sender);
       return;
     }
 
@@ -62,7 +62,7 @@ public class LoadCommand {
                               .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                       new MultiMessage.Placeholder("world", world.getFolder(), false),
                       new MultiMessage.Placeholder("label", "pw", false)
-              ))).send(sender);
+                           ))).send(sender);
       return;
     }
 
@@ -75,7 +75,7 @@ public class LoadCommand {
                               .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                       new MultiMessage.Placeholder("world", world.getFolder(), false),
                       new MultiMessage.Placeholder("label", "pw", false)
-              ))).send(sender);
+                           ))).send(sender);
       return;
     }
 
@@ -89,7 +89,7 @@ public class LoadCommand {
                               .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                       new MultiMessage.Placeholder("world", world.getFolder(), false),
                       new MultiMessage.Placeholder("label", "pw", false)
-              ))).send(sender);
+                           ))).send(sender);
       return;
     }
 
@@ -100,6 +100,6 @@ public class LoadCommand {
                     new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
                             .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                     new MultiMessage.Placeholder("world", world.getFolder(), false)
-            ))).send(sender);
+                         ))).send(sender);
   }
 }

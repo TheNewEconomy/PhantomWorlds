@@ -44,7 +44,7 @@ public class ImportCommand {
               Collections.singletonList(
                       new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
                               .getString("common.prefix", "&b&lPhantomWorlds: &7"), true)
-              ))).send(sender);
+                                       ))).send(sender);
       return;
     }
 
@@ -57,7 +57,7 @@ public class ImportCommand {
                       new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
                               .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                       new MultiMessage.Placeholder("world", world.getName(), false)
-              ))).send(sender);
+                           ))).send(sender);
       return;
     }
 
@@ -74,6 +74,6 @@ public class ImportCommand {
                     new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
                             .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                     new MultiMessage.Placeholder("world", world.getName(), false)
-            ))).send(sender);
+                         ))).send(sender);
   }
 }

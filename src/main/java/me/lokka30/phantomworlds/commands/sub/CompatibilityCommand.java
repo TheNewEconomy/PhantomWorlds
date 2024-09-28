@@ -34,14 +34,15 @@ import java.util.Collections;
 public class CompatibilityCommand {
 
   public static void onCommand(final CommandSender sender) {
+
     (new MultiMessage(
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.compatibility.start"),
             Collections.singletonList(
                     new MultiMessage.Placeholder("prefix",
-                            PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                            true)
-            ))).send(sender);
+                                                 PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                                 true)
+                                     ))).send(sender);
 
     PhantomWorlds.instance().compatibilityChecker.checkAll();
 
@@ -52,7 +53,7 @@ public class CompatibilityCommand {
               Collections.singletonList(
                       new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
                               .getString("common.prefix", "&b&lPhantomWorlds: &7"), true)
-              ))).send(sender);
+                                       ))).send(sender);
       return;
     }
 
@@ -61,14 +62,14 @@ public class CompatibilityCommand {
                     .getStringList("command.phantomworlds.subcommands.compatibility.found"),
             Arrays.asList(
                     new MultiMessage.Placeholder("prefix",
-                            PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                            true),
+                                                 PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                                 true),
                     new MultiMessage.Placeholder("amount",
-                            String.valueOf(PhantomWorlds.instance().compatibilityChecker.incompatibilities.size()), false)
-            ))).send(sender);
+                                                 String.valueOf(PhantomWorlds.instance().compatibilityChecker.incompatibilities.size()), false)
+                         ))).send(sender);
 
     for(int i = 0; i < PhantomWorlds.instance().compatibilityChecker.incompatibilities.size(); i++) {
-      CompatibilityChecker.Incompatibility incompatibility = PhantomWorlds.instance().compatibilityChecker.incompatibilities.get(
+      final CompatibilityChecker.Incompatibility incompatibility = PhantomWorlds.instance().compatibilityChecker.incompatibilities.get(
               i);
 
       (new MultiMessage(
@@ -81,8 +82,8 @@ public class CompatibilityCommand {
                       new MultiMessage.Placeholder("type", incompatibility.type.toString(), false),
                       new MultiMessage.Placeholder("reason", incompatibility.reason, true),
                       new MultiMessage.Placeholder("recommendation", incompatibility.recommendation,
-                              true)
-              ))).send(sender);
+                                                   true)
+                           ))).send(sender);
     }
   }
 }

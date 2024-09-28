@@ -27,11 +27,13 @@ public class WorldFolder {
 
   private final String folder;
 
-  public WorldFolder(String folder) {
+  public WorldFolder(final String folder) {
+
     this.folder = folder;
   }
 
   public String getFolder() {
+
     return folder;
   }
 }

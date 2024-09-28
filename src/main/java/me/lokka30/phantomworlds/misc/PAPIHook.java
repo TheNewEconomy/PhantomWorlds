@@ -29,23 +29,28 @@ import org.jetbrains.annotations.Nullable;
  * @since 2.0.5.0
  */
 public class PAPIHook extends PlaceholderExpansion {
+
   @Override
   public @NotNull String getIdentifier() {
+
     return "pworlds";
   }
 
   @Override
   public @NotNull String getAuthor() {
+
     return "creatorfromhell";
   }
 
   @Override
   public @NotNull String getVersion() {
+
     return "2.0.8";
   }
 
   @Override
-  public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
+  public @Nullable String onPlaceholderRequest(final Player player, @NotNull final String params) {
+
     if(player == null) {
       return null;
     }
@@ -78,6 +83,7 @@ public class PAPIHook extends PlaceholderExpansion {
   }
 
   private String period(final long time) {
+
     if(time >= 6000 && time <= 11999) {
       return "noon";
     } else if(time >= 12000 && time <= 12999) {

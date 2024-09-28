@@ -45,19 +45,19 @@ public class BackupCommand {
               PhantomWorlds.instance().messages.getConfig()
                       .getStringList("command.phantomworlds.subcommands.backup.failure"), Arrays.asList(
               new MultiMessage.Placeholder("prefix",
-                      PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                      true),
+                                           PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                           true),
               new MultiMessage.Placeholder("world", world.getName(), false)
-      ))).send(sender);
+                                                                                                       ))).send(sender);
     }
 
     (new MultiMessage(
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.backup.success"), Arrays.asList(
             new MultiMessage.Placeholder("prefix",
-                    PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                    true),
+                                         PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                         true),
             new MultiMessage.Placeholder("world", world.getName(), false)
-    ))).send(sender);
+                                                                                                     ))).send(sender);
   }
 }

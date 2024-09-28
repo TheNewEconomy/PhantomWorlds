@@ -29,6 +29,7 @@ import org.bukkit.scheduler.BukkitRunnable;
  * @since 2.0.5.0
  */
 public class BackupScheduler extends BukkitRunnable {
+
   /**
    * When an object implementing interface {@code Runnable} is used to create a thread, starting the
    * thread causes the object's {@code run} method to be called in that separately executing
@@ -40,6 +41,7 @@ public class BackupScheduler extends BukkitRunnable {
    */
   @Override
   public void run() {
+
     PhantomWorlds.logger().info("Running World Backup Task...");
 
     for(final World world : Bukkit.getWorlds()) {

@@ -33,8 +33,10 @@ import org.bukkit.command.CommandSender;
  * @since 2.0.5.0
  */
 public class SettingParameter extends ArgumentResolver<CommandSender, String> {
+
   @Override
-  protected ParseResult<String> parse(Invocation<CommandSender> invocation, Argument<String> context, String argument) {
+  protected ParseResult<String> parse(final Invocation<CommandSender> invocation, final Argument<String> context, final String argument) {
+
     if(argument.isEmpty()) {
       return ParseResult.failure("Invalid effect argument.");
     }
@@ -42,7 +44,8 @@ public class SettingParameter extends ArgumentResolver<CommandSender, String> {
   }
 
   @Override
-  public SuggestionResult suggest(Invocation<CommandSender> invocation, Argument<String> argument, SuggestionContext context) {
+  public SuggestionResult suggest(final Invocation<CommandSender> invocation, final Argument<String> argument, final SuggestionContext context) {
+
     return SuggestionResult.of(PhantomWorlds.createTabs);
   }
 }

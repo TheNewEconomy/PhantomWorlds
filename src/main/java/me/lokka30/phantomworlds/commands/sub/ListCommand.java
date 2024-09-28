@@ -36,14 +36,15 @@ import java.util.HashSet;
 public class ListCommand {
 
   public static void onCommand(final CommandSender sender) {
+
     (new MultiMessage(
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.list.header-loaded"), Arrays.asList(
             new MultiMessage.Placeholder("prefix",
-                    PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                    true),
+                                         PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                         true),
             new MultiMessage.Placeholder("amount", String.valueOf(Bukkit.getWorlds().size()), false)
-    ))).send(sender);
+                                                                                                         ))).send(sender);
 
     final HashSet<String> loaded = new HashSet<>();
 
@@ -52,21 +53,21 @@ public class ListCommand {
       loaded.add(world.getName());
     }
 
-    for(String world : loaded) {
+    for(final String world : loaded) {
       (new MultiMessage(
               PhantomWorlds.instance().messages.getConfig()
                       .getStringList("command.phantomworlds.subcommands.list.entry"), Arrays.asList(
               new MultiMessage.Placeholder("prefix",
-                      PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                      true),
+                                           PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                           true),
               new MultiMessage.Placeholder("world", world, false)
-      ))).send(sender);
+                                                                                                   ))).send(sender);
     }
 
     final HashSet<String> unloaded = new HashSet<>();
     final File directory = Bukkit.getWorldContainer();
 
-    for(File file : directory.listFiles()) {
+    for(final File file : directory.listFiles()) {
       if(file.isDirectory() && !loaded.contains(file.getName())) {
         final File levelDat = new File(file, "level.dat");
         if(levelDat.exists()) {
@@ -79,25 +80,25 @@ public class ListCommand {
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.list.header-unloaded"), Arrays.asList(
             new MultiMessage.Placeholder("prefix",
-                    PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                    true),
+                                         PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                         true),
             new MultiMessage.Placeholder("amount", String.valueOf(unloaded.size()), false)
-    ))).send(sender);
+                                                                                                           ))).send(sender);
 
-    for(String world : unloaded) {
+    for(final String world : unloaded) {
       (new MultiMessage(
               PhantomWorlds.instance().messages.getConfig()
                       .getStringList("command.phantomworlds.subcommands.list.entry"), Arrays.asList(
               new MultiMessage.Placeholder("prefix",
-                      PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                      true),
+                                           PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                           true),
               new MultiMessage.Placeholder("world", world, false)
-      ))).send(sender);
+                                                                                                   ))).send(sender);
     }
 
     final HashSet<String> archived = new HashSet<>();
     final File dir = new File(PhantomWorlds.instance().getDataFolder(), PhantomWorlds.BACKUP_FOLDER);
-    for(File file : dir.listFiles()) {
+    for(final File file : dir.listFiles()) {
       if(file.isDirectory() && !loaded.contains(file.getName()) && !unloaded.contains(file.getName())) {
         archived.add(file.getName());
       }
@@ -107,20 +108,20 @@ public class ListCommand {
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.list.header-archived"), Arrays.asList(
             new MultiMessage.Placeholder("prefix",
-                    PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                    true),
+                                         PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                         true),
             new MultiMessage.Placeholder("amount", String.valueOf(archived.size()), false)
-    ))).send(sender);
+                                                                                                           ))).send(sender);
 
-    for(String world : archived) {
+    for(final String world : archived) {
       (new MultiMessage(
               PhantomWorlds.instance().messages.getConfig()
                       .getStringList("command.phantomworlds.subcommands.list.entry"), Arrays.asList(
               new MultiMessage.Placeholder("prefix",
-                      PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                      true),
+                                           PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                           true),
               new MultiMessage.Placeholder("world", world, false)
-      ))).send(sender);
+                                                                                                   ))).send(sender);
     }
   }
 }

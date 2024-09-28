@@ -35,7 +35,9 @@ import java.util.List;
  * @since 2.0.5.0
  */
 public class SetEffectsCommand {
+
   public static void onCommand(final CommandSender sender, final World world, final List<String> effects) {
+
     if(!Utils.checkWorld(sender, "command.phantomworlds.subcommands.seteffects.usage", world)) {
       return;
     }
@@ -46,7 +48,7 @@ public class SetEffectsCommand {
 
     final String cfgPath = "worlds-to-load." + finalWorld.getName();
 
-    for(String effString : effects) {
+    for(final String effString : effects) {
 
       if(eff.length() > 0) {
         eff.append(", ");
@@ -58,7 +60,7 @@ public class SetEffectsCommand {
       if(effSettings.length > 1) {
         try {
           duration = Integer.parseInt(effSettings[1]);
-        } catch(NumberFormatException ignore) {
+        } catch(final NumberFormatException ignore) {
         }
       }
 
@@ -67,7 +69,7 @@ public class SetEffectsCommand {
       if(effSettings.length > 2) {
         try {
           amplifier = Integer.parseInt(effSettings[2]);
-        } catch(NumberFormatException ignore) {
+        } catch(final NumberFormatException ignore) {
         }
       }
 
@@ -87,10 +89,10 @@ public class SetEffectsCommand {
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.seteffects.success"), Arrays.asList(
             new MultiMessage.Placeholder("prefix",
-                    PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                    true),
+                                         PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                         true),
             new MultiMessage.Placeholder("world", finalWorld.getName(), false),
             new MultiMessage.Placeholder("effects", eff.toString(), false)
-    ))).send(sender);
+                                                                                                         ))).send(sender);
   }
 }

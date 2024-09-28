@@ -36,6 +36,7 @@ import java.util.Arrays;
 public class SetWhitelistCommand {
 
   public static void onCommand(final CommandSender sender, final World world, final boolean whitelist) {
+
     if(!Utils.checkWorld(sender, "command.phantomworlds.subcommands.setwhitelist.usage", world)) {
       return;
     }
@@ -59,10 +60,10 @@ public class SetWhitelistCommand {
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.setwhitelist.success"), Arrays.asList(
             new MultiMessage.Placeholder("prefix",
-                    PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                    true),
+                                         PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                         true),
             new MultiMessage.Placeholder("world", finalWorld.getName(), false),
             new MultiMessage.Placeholder("whitelist", whitelist + "", false)
-    ))).send(sender);
+                                                                                                           ))).send(sender);
   }
 }

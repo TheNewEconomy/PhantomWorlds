@@ -38,8 +38,10 @@ import java.util.List;
  * @since 2.0.5.0
  */
 public class WorldFolderParameter extends ArgumentResolver<CommandSender, WorldFolder> {
+
   @Override
-  protected ParseResult<WorldFolder> parse(Invocation<CommandSender> invocation, Argument<WorldFolder> context, String argument) {
+  protected ParseResult<WorldFolder> parse(final Invocation<CommandSender> invocation, final Argument<WorldFolder> context, final String argument) {
+
     final File directory = Bukkit.getWorldContainer();
     final File worldDir = new File(directory, argument);
 
@@ -50,7 +52,8 @@ public class WorldFolderParameter extends ArgumentResolver<CommandSender, WorldF
   }
 
   @Override
-  public SuggestionResult suggest(Invocation<CommandSender> invocation, Argument<WorldFolder> argument, SuggestionContext context) {
+  public SuggestionResult suggest(final Invocation<CommandSender> invocation, final Argument<WorldFolder> argument, final SuggestionContext context) {
+
     final List<String> folders = new ArrayList<>();
     final File directory = Bukkit.getWorldContainer();
 

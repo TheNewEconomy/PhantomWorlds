@@ -35,12 +35,14 @@ public class PlayerTeleportListener implements Listener {
 
   final PhantomWorlds plugin;
 
-  public PlayerTeleportListener(PhantomWorlds plugin) {
+  public PlayerTeleportListener(final PhantomWorlds plugin) {
+
     this.plugin = plugin;
   }
 
   @EventHandler
-  public void onTP(PlayerTeleportEvent event) {
+  public void onTP(final PlayerTeleportEvent event) {
+
     if(event.getTo() == null || event.getTo().getWorld() == null || event.getFrom().getWorld() == null) {
       return;
     }
@@ -52,7 +54,7 @@ public class PlayerTeleportListener implements Listener {
     final String cfgPath = "worlds-to-load." + event.getTo().getWorld().getName();
 
     if(!event.getPlayer().isOp() && PhantomWorlds.instance().data.getConfig().getBoolean(cfgPath + ".whitelist", false)
-            && !event.getPlayer().hasPermission("phantomworlds.world.access." + event.getTo().getWorld().getName())) {
+       && !event.getPlayer().hasPermission("phantomworlds.world.access." + event.getTo().getWorld().getName())) {
       event.setCancelled(true);
     }
 
@@ -70,7 +72,7 @@ public class PlayerTeleportListener implements Listener {
                         new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
                                 .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                         new MultiMessage.Placeholder("world", event.getTo().getWorld().getName(), false)
-                ))).send(event.getPlayer());
+                             ))).send(event.getPlayer());
 
       } else {
         plugin.worldManager.tpAwaiting.get(event.getPlayer().getUniqueId()).send(event.getPlayer());

@@ -53,21 +53,22 @@ public class PhantomWorld {
   private final GameMode gameMode;
 
   public PhantomWorld(
-          @NotNull String name,
-          @NotNull World.Environment environment,
-          boolean generateStructures,
-          @Nullable String generator,
-          @Nullable String generatorSettings,
-          boolean hardcore,
-          @Nullable Long seed,
-          @NotNull WorldType worldType,
-          boolean spawnMobs,
-          boolean spawnAnimals,
-          boolean keepSpawnInMemory,
-          boolean allowPvP,
-          @NotNull Difficulty difficulty,
-          @NotNull GameMode gameMode
-  ) {
+          @NotNull final String name,
+          @NotNull final World.Environment environment,
+          final boolean generateStructures,
+          @Nullable final String generator,
+          @Nullable final String generatorSettings,
+          final boolean hardcore,
+          @Nullable final Long seed,
+          @NotNull final WorldType worldType,
+          final boolean spawnMobs,
+          final boolean spawnAnimals,
+          final boolean keepSpawnInMemory,
+          final boolean allowPvP,
+          @NotNull final Difficulty difficulty,
+          @NotNull final GameMode gameMode
+                     ) {
+
     this.name = name;
     this.environment = environment;
     this.generateStructures = generateStructures;
@@ -90,13 +91,14 @@ public class PhantomWorld {
    * @since v2.0.0
    */
   public void create() {
+
     final WorldCreator worldCreator = new WorldCreator(name);
 
     worldCreator.environment(environment);
     worldCreator.generateStructures(generateStructures);
     try {
       worldCreator.hardcore(hardcore);
-    } catch(NoSuchMethodError ignored) {
+    } catch(final NoSuchMethodError ignored) {
     }
     worldCreator.type(worldType);
 
@@ -148,54 +150,67 @@ public class PhantomWorld {
   }
 
   public String name() {
+
     return name;
   }
 
   public World.Environment environment() {
+
     return environment;
   }
 
   public boolean generateStructures() {
+
     return generateStructures;
   }
 
   public String generator() {
+
     return generator;
   }
 
   public String generatorSettings() {
+
     return generatorSettings;
   }
 
   public boolean hardcore() {
+
     return hardcore;
   }
 
   public Long seed() {
+
     return seed;
   }
 
   public WorldType worldType() {
+
     return worldType;
   }
 
   public boolean spawnMobs() {
+
     return spawnMobs;
   }
 
   public boolean spawnAnimals() {
+
     return spawnAnimals;
   }
 
   public boolean keepSpawnInMemory() {
+
     return keepSpawnInMemory;
   }
 
   public boolean allowPvP() {
+
     return allowPvP;
   }
 
   public Difficulty difficulty() {
+
     return difficulty;
   }
 }

@@ -47,7 +47,7 @@ public class Utils {
    * setspawn subcommand.
    */
   public static final List<String> ZERO_THRU_NINE = Arrays.asList("0", "1", "2", "3", "4", "5",
-          "6", "7", "8", "9");
+                                                                  "6", "7", "8", "9");
 
   /**
    * This method returns a list of the names of worlds that are loaded on the server. Used in tab
@@ -58,12 +58,14 @@ public class Utils {
    * @since v2.0.0
    */
   public static HashSet<String> getLoadedWorldsNameList() {
+
     final HashSet<String> loadedWorlds = new HashSet<>();
     Bukkit.getWorlds().forEach(world->loadedWorlds.add(world.getName()));
     return loadedWorlds;
   }
 
   public static boolean copyFolder(final Path source, final Path target) throws IOException {
+
     if(!Files.exists(source) || !Files.isDirectory(source)) {
       return false;
     }
@@ -74,20 +76,20 @@ public class Utils {
     }
 
     // Walk the file tree from the source directory and copy each file/folder
-    try(Stream<Path> pathStream = Files.walk(source)) {
+    try(final Stream<Path> pathStream = Files.walk(source)) {
 
-      pathStream.forEach(sourcePath -> {
+      pathStream.forEach(sourcePath->{
         final Path targetPath = target.resolve(source.relativize(sourcePath));
         try {
 
           if(!targetPath.toString().toLowerCase(Locale.ROOT).contains("uid.dat")
-                  && !targetPath.toString().toLowerCase(Locale.ROOT).contains("session.lock")) {
+             && !targetPath.toString().toLowerCase(Locale.ROOT).contains("session.lock")) {
 
             Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
           }
-        } catch(FileSystemException ignore) {
+        } catch(final FileSystemException ignore) {
           //session.lock is lame
-        } catch (IOException e) {
+        } catch(final IOException e) {
 
           throw new RuntimeException("Failed to copy file: " + sourcePath, e);
         }
@@ -99,15 +101,16 @@ public class Utils {
   /**
    * Attempts to register specified command. Sends status to console as logs.
    *
-   * @param clazz CommandExecutor to be registered
+   * @param clazz   CommandExecutor to be registered
    * @param command Name of the command as stated in plugin.yml
    *
    * @since v2.0.0
    */
   public static void registerCommand(@NotNull final CommandExecutor clazz, @NotNull final String command) {
+
     if(PhantomWorlds.instance().getCommand(command) == null) {
       PhantomWorlds.logger().severe("Unable to register command '/" + command + "' - PluginCommand "
-              + "is null. Was plugin.yml tampered with?");
+                                    + "is null. Was plugin.yml tampered with?");
     } else {
       //noinspection ConstantConditions
       PhantomWorlds.instance().getCommand(command).setExecutor(clazz);
@@ -130,23 +133,23 @@ public class Utils {
             "Unloading world %s; kicking %s players from the world...",
             world.getName(),
             world.getPlayers().size()
-    ));
+                                             ));
 
     // kick players in world
     // using an iterator to avoid a possible ConcurrentModificationException
     world.getPlayers().iterator().forEachRemaining(player->
-            // yikes, this gets messy. :P
-            player.kickPlayer(MessageUtils.colorizeAll(
-                    String.join("\n",
-                                    PhantomWorlds.instance().messages.getConfig()
-                                            .getStringList("command.phantomworlds.subcommands.unload.kick")
-                            )
-                            .replace("%prefix%",
-                                    PhantomWorlds.instance().messages.getConfig()
-                                            .getString("common.prefix", "PhantomWorlds: "))
-                            .replace("%world%", world.getName())
-            ))
-    );
+                                                           // yikes, this gets messy. :P
+                                                           player.kickPlayer(MessageUtils.colorizeAll(
+                                                                   String.join("\n",
+                                                                               PhantomWorlds.instance().messages.getConfig()
+                                                                                       .getStringList("command.phantomworlds.subcommands.unload.kick")
+                                                                              )
+                                                                           .replace("%prefix%",
+                                                                                    PhantomWorlds.instance().messages.getConfig()
+                                                                                            .getString("common.prefix", "PhantomWorlds: "))
+                                                                           .replace("%world%", world.getName())
+                                                                                                     ))
+                                                  );
 
     // time to unload the world
     Bukkit.unloadWorld(world, true);
@@ -164,18 +167,19 @@ public class Utils {
    * @since v2.0.0
    */
   public static List<String> getPlayersCanSeeList(@NotNull final CommandSender sender) {
+
     final List<String> suggestions = new ArrayList<>();
 
     if(!sender.hasPermission("phantomworlds.knows-vanished-users")
-            && sender instanceof Player) {
+       && sender instanceof Player) {
       final Player player = (Player)sender;
-      for(Player listedPlayer : Bukkit.getOnlinePlayers()) {
+      for(final Player listedPlayer : Bukkit.getOnlinePlayers()) {
         if(player.canSee(listedPlayer)) {
           suggestions.add(listedPlayer.getName());
         }
       }
     } else {
-      for(Player listedPlayer : Bukkit.getOnlinePlayers()) {
+      for(final Player listedPlayer : Bukkit.getOnlinePlayers()) {
         suggestions.add(listedPlayer.getName());
       }
     }
@@ -191,8 +195,9 @@ public class Utils {
    * @since v2.0.0
    */
   public static List<String> enumValuesToStringList(final Object[] values) {
+
     final List<String> strings = new ArrayList<>();
-    for(Object value : values) {
+    for(final Object value : values) {
       strings.add(value.toString());
     }
     return strings;
@@ -206,10 +211,12 @@ public class Utils {
    * @return val, rounded to 2 decimal places.
    */
   public static double roundTwoDecimalPlaces(final double val) {
+
     return Math.round(val * 100) / 100.0;
   }
 
-  public static Optional<Boolean> parseFromString(CommandSender sender, final StringBuilder value, final String option) {
+  public static Optional<Boolean> parseFromString(final CommandSender sender, final StringBuilder value, final String option) {
+
     switch(value.toString().toLowerCase(Locale.ROOT)) {
       case "false":
       case "f":
@@ -227,21 +234,22 @@ public class Utils {
                         "command.phantomworlds.subcommands.create.options.invalid-value"),
                 Arrays.asList(
                         new MultiMessage.Placeholder("prefix",
-                                PhantomWorlds.instance().messages.getConfig().getString("common.prefix",
-                                        "&b&lPhantomWorlds: &7"), true),
+                                                     PhantomWorlds.instance().messages.getConfig().getString("common.prefix",
+                                                                                                             "&b&lPhantomWorlds: &7"), true),
                         new MultiMessage.Placeholder("value", value.toString(),
-                                false),
+                                                     false),
                         new MultiMessage.Placeholder("option", option, false),
                         new MultiMessage.Placeholder("expected",
-                                "Boolean (true/false)", false)
-                ))).send(sender);
+                                                     "Boolean (true/false)", false)
+                             ))).send(sender);
         return Optional.empty();
     }
   }
 
-  public static void zipFolder(File sourceFolder, String destinationZipFile) throws IOException {
-    try(FileOutputStream fos = new FileOutputStream(destinationZipFile);
-        ZipOutputStream zos = new ZipOutputStream(fos)) {
+  public static void zipFolder(final File sourceFolder, final String destinationZipFile) throws IOException {
+
+    try(final FileOutputStream fos = new FileOutputStream(destinationZipFile);
+        final ZipOutputStream zos = new ZipOutputStream(fos)) {
 
       //zipFolder(sourceFolder, sourceFolder.getName(), zos);
 
@@ -250,12 +258,13 @@ public class Utils {
       zos.flush();
       zos.close();
       fos.flush();
-    } catch(Exception e) {
+    } catch(final Exception e) {
       e.printStackTrace();
     }
   }
 
-  public static void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
+  public static void zipFile(final File fileToZip, final String fileName, final ZipOutputStream zipOut) throws IOException {
+
     if(fileToZip.isHidden()) {
       return;
     }
@@ -272,22 +281,22 @@ public class Utils {
         zipOut.closeEntry();
       }
 
-      File[] children = fileToZip.listFiles();
+      final File[] children = fileToZip.listFiles();
       if(children == null) {
         return;
       }
 
-      for(File childFile : children) {
+      for(final File childFile : children) {
         zipFile(childFile, fileName + "/" + childFile.getName(), zipOut);
       }
       return;
     }
 
-    FileInputStream fis = new FileInputStream(fileToZip);
-    ZipEntry zipEntry = new ZipEntry(fileName);
+    final FileInputStream fis = new FileInputStream(fileToZip);
+    final ZipEntry zipEntry = new ZipEntry(fileName);
     zipOut.putNextEntry(zipEntry);
 
-    byte[] bytes = new byte[1024];
+    final byte[] bytes = new byte[1024];
     int length;
 
     while((length = fis.read(bytes)) >= 0) {
@@ -307,8 +316,8 @@ public class Utils {
       return;
     }
 
-    for (File file : files) {
-      if (file.isDirectory()) {
+    for(final File file : files) {
+      if(file.isDirectory()) {
         zipFolder(file, parentFolder + File.separator + file.getName(), zos);
         continue;
       }
@@ -316,10 +325,10 @@ public class Utils {
       final ZipEntry zipEntry = new ZipEntry(parentFolder + File.separator + file.getName());
       zos.putNextEntry(zipEntry);
 
-      try (FileInputStream fis = new FileInputStream(file)) {
+      try(final FileInputStream fis = new FileInputStream(file)) {
         final byte[] buffer = new byte[1024];
         int length;
-        while ((length = fis.read(buffer)) > 0) {
+        while((length = fis.read(buffer)) > 0) {
           zos.write(buffer, 0, length);
         }
       }
@@ -327,12 +336,13 @@ public class Utils {
     }
   }
 
-  public static boolean deleteFolder(File folder) {
-    if (folder.exists()) {
+  public static boolean deleteFolder(final File folder) {
+
+    if(folder.exists()) {
       final File[] files = folder.listFiles();
-      if (files != null) {
-        for (File file : files) {
-          if (file.isDirectory()) {
+      if(files != null) {
+        for(final File file : files) {
+          if(file.isDirectory()) {
             deleteFolder(file);
           } else {
             file.delete();
@@ -343,10 +353,11 @@ public class Utils {
     return folder.delete();
   }
 
-  public static void teleportToWorld(@NotNull CommandSender sender, @NotNull String subCommand,
-                                     @NotNull String label, @Nullable String targetPlayerName,
+  public static void teleportToWorld(@NotNull final CommandSender sender, @NotNull final String subCommand,
+                                     @NotNull final String label, @Nullable final String targetPlayerName,
                                      @Nullable String worldName) {
-    Player targetPlayer;
+
+    final Player targetPlayer;
     if(targetPlayerName != null) {
       targetPlayer = Bukkit.getPlayer(targetPlayerName);
 
@@ -360,7 +371,7 @@ public class Utils {
                         new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
                                 .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                         new MultiMessage.Placeholder("player", targetPlayerName, false)
-                ))).send(sender);
+                             ))).send(sender);
         return;
       }
     } else {
@@ -374,7 +385,7 @@ public class Utils {
                         new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
                                 .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                         new MultiMessage.Placeholder("label", label, false)
-                ))).send(sender);
+                             ))).send(sender);
         return;
       }
     }
@@ -392,7 +403,7 @@ public class Utils {
                       new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
                               .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                       new MultiMessage.Placeholder("world", worldName, false)
-              ))).send(sender);
+                           ))).send(sender);
       return;
     }
 
@@ -401,16 +412,17 @@ public class Utils {
                     .getStringList("command.phantomworlds.subcommands." + subCommand + ".success"),
             Arrays.asList(
                     new MultiMessage.Placeholder("prefix",
-                            PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                            true),
+                                                 PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                                 true),
                     new MultiMessage.Placeholder("player", targetPlayer.getName(), false),
                     new MultiMessage.Placeholder("world", worldName, false)
-            )));
+                         )));
 
     targetPlayer.teleport(parseSpawn(world));
   }
 
   public static Location parseSpawn(final World world) {
+
     final String cfgPath = "worlds-to-load." + world.getName() + ".spawn";
     if(PhantomWorlds.instance().data.getConfig().contains(cfgPath)) {
       final double x = PhantomWorlds.instance().data.getConfig().getDouble(cfgPath + ".x", world.getSpawnLocation().getX());
@@ -425,16 +437,17 @@ public class Utils {
   }
 
   public static boolean checkWorld(@NotNull final CommandSender sender, final String usage, @Nullable final World world) {
+
     if(world == null) {
 
       (new MultiMessage(
               PhantomWorlds.instance().messages.getConfig()
                       .getStringList(usage), Arrays.asList(
               new MultiMessage.Placeholder("prefix",
-                      PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                      true),
+                                           PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                           true),
               new MultiMessage.Placeholder("label", "pw", false)
-      ))).send(sender);
+                                                          ))).send(sender);
 
       return false;
     }
@@ -442,25 +455,28 @@ public class Utils {
   }
 
   public static String defaultWorld() {
-    try (InputStream input = Files.newInputStream(new File(PhantomWorlds.instance().getDataFolder(), "../../server.properties").toPath())) {
+
+    try(final InputStream input = Files.newInputStream(new File(PhantomWorlds.instance().getDataFolder(), "../../server.properties").toPath())) {
 
       final Properties prop = new Properties();
       prop.load(input);
 
       return prop.getProperty("level-name");
-    } catch(Exception ignore) {
+    } catch(final Exception ignore) {
       return "world";
     }
   }
 
   public static boolean isOneSeventeen(final String version) {
+
     return version.contains("1.17") || version.contains("1.7") || version.contains("1.8") ||
-            version.contains("1.9") || version.contains("1.10") || version.contains("1.11") ||
-            version.contains("1.12") || version.contains("1.13") || version.contains("1.14") ||
-            version.contains("1.15") || version.contains("1.16");
+           version.contains("1.9") || version.contains("1.10") || version.contains("1.11") ||
+           version.contains("1.12") || version.contains("1.13") || version.contains("1.14") ||
+           version.contains("1.15") || version.contains("1.16");
   }
 
   public static boolean isTwentyFive(final String version) {
+
     return version.contains("1.20.5");
   }
 }

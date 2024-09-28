@@ -32,14 +32,15 @@ import java.util.Collections;
 public class ReloadCommand {
 
   public static void onCommand(final CommandSender sender) {
+
     (new MultiMessage(
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.reload.reloading-files"),
             Collections.singletonList(
                     new MultiMessage.Placeholder("prefix",
-                            PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                            true)
-            ))).send(sender);
+                                                 PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                                 true)
+                                     ))).send(sender);
 
     PhantomWorlds.instance().loadFiles();
 
@@ -48,9 +49,9 @@ public class ReloadCommand {
                     .getStringList("command.phantomworlds.subcommands.reload.reloading-worlds"),
             Collections.singletonList(
                     new MultiMessage.Placeholder("prefix",
-                            PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                            true)
-            ))).send(sender);
+                                                 PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                                 true)
+                                     ))).send(sender);
 
     PhantomWorlds.instance().loadWorlds();
 
@@ -59,8 +60,8 @@ public class ReloadCommand {
                     .getStringList("command.phantomworlds.subcommands.reload.reload-complete"),
             Collections.singletonList(
                     new MultiMessage.Placeholder("prefix",
-                            PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                            true)
-            ))).send(sender);
+                                                 PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                                 true)
+                                     ))).send(sender);
   }
 }

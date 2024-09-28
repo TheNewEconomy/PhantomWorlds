@@ -59,15 +59,15 @@ public class PhantomWorlds extends JavaPlugin {
 
   public static final List<String> createTabs = new ArrayList<>();
 
-    /*
-     *TODO:
-     * - Translate backslash character in world names as a space so world names with a space can be used in the plugin
-     * - Vanish compatibility
-     *  - don't send 'by' messages unless the sender is not a player / target can see the (player) sender
-     *  - add vanish compatibility to 'teleport' subcommand
-     *  - add ability to toggle vanish compatibility
-     * - log in console (LogLevel:INFO) when a command is prevented due to a target player seemingly being vanished to the command sender.
-     */
+  /*
+   *TODO:
+   * - Translate backslash character in world names as a space so world names with a space can be used in the plugin
+   * - Vanish compatibility
+   *  - don't send 'by' messages unless the sender is not a player / target can see the (player) sender
+   *  - add vanish compatibility to 'teleport' subcommand
+   *  - add ability to toggle vanish compatibility
+   * - log in console (LogLevel:INFO) when a command is prevented due to a target player seemingly being vanished to the command sender.
+   */
 
 
   private static PhantomWorlds instance;
@@ -82,7 +82,7 @@ public class PhantomWorlds extends JavaPlugin {
   /**
    * If you have contributed code to the plugin, add your name to the end of this list! :)
    */
-  public static final String[] CONTRIBUTORS = new String[]{"madison-allen"};
+  public static final String[] CONTRIBUTORS = new String[]{ "madison-allen" };
 
   public static final List<String> COMMAND_HELP = new LinkedList<>();
 
@@ -111,13 +111,13 @@ public class PhantomWorlds extends JavaPlugin {
    * Data/configuration files.
    */
   public final YamlConfigFile settings = new YamlConfigFile(this,
-          new File(getDataFolder(), "settings.yml"));
+                                                            new File(getDataFolder(), "settings.yml"));
   public final YamlConfigFile advancedSettings = new YamlConfigFile(this,
-          new File(getDataFolder(), "advancedSettings.yml"));
+                                                                    new File(getDataFolder(), "advancedSettings.yml"));
   public final YamlConfigFile messages = new YamlConfigFile(this,
-          new File(getDataFolder(), "messages.yml"));
+                                                            new File(getDataFolder(), "messages.yml"));
   public final YamlConfigFile data = new YamlConfigFile(this,
-          new File(getDataFolder(), "data.yml"));
+                                                        new File(getDataFolder(), "data.yml"));
 
   /*
       Used to check if world are loaded
@@ -142,7 +142,7 @@ public class PhantomWorlds extends JavaPlugin {
     }
     createTabs.addAll(generateCreateSuggestions());
 
-    QuickTimer timer = new QuickTimer(TimeUnit.MILLISECONDS);
+    final QuickTimer timer = new QuickTimer(TimeUnit.MILLISECONDS);
 
     final String bukkitVersion = Bukkit.getServer().getBukkitVersion();
     if(Utils.isOneSeventeen(bukkitVersion)) {
@@ -166,6 +166,7 @@ public class PhantomWorlds extends JavaPlugin {
   }
 
   public boolean isWorldLoaded() {
+
     return isWorldLoaded;
   }
 
@@ -176,6 +177,7 @@ public class PhantomWorlds extends JavaPlugin {
    */
   @Override
   public void onDisable() {
+
     final QuickTimer timer = new QuickTimer(TimeUnit.MILLISECONDS);
 
     if(backupService != null) {
@@ -192,6 +194,7 @@ public class PhantomWorlds extends JavaPlugin {
    * @since v2.0.0
    */
   void checkCompatibility() {
+
     getLogger().info("Checking compatibility with server...");
 
     compatibilityChecker.checkAll();
@@ -201,7 +204,7 @@ public class PhantomWorlds extends JavaPlugin {
     }
 
     for(int i = 0; i < compatibilityChecker.incompatibilities.size(); i++) {
-      CompatibilityChecker.Incompatibility incompatibility = compatibilityChecker.incompatibilities.get(
+      final CompatibilityChecker.Incompatibility incompatibility = compatibilityChecker.incompatibilities.get(
               i);
       getLogger().warning(
               "Incompatibility #" + (i + 1) + " (Type: " + incompatibility.type + "):");
@@ -217,6 +220,7 @@ public class PhantomWorlds extends JavaPlugin {
    * @since v2.0.0
    */
   public void loadFiles() {
+
     getLogger().info("Checking for backup directory...");
 
     final File backup = new File(getDataFolder(), BACKUP_FOLDER);
@@ -226,7 +230,7 @@ public class PhantomWorlds extends JavaPlugin {
 
     getLogger().info("Loading files...");
 
-    for(FileManager.PWFile pwFile : FileManager.PWFile.values()) {
+    for(final FileManager.PWFile pwFile : FileManager.PWFile.values()) {
       fileManager.init(pwFile);
     }
   }
@@ -238,6 +242,7 @@ public class PhantomWorlds extends JavaPlugin {
    * @since v2.0.0
    */
   public void loadWorlds() {
+
     getLogger().info("Loading worlds...");
     worldManager.loadManagedWorlds();
     isWorldLoaded = true;
@@ -250,13 +255,14 @@ public class PhantomWorlds extends JavaPlugin {
    * @since v2.0.0
    */
   void registerCommands() {
+
     getLogger().info("Registering commands...");
 
     this.command = LiteBukkitFactory.builder()
             .commands(new PWCommand())
-            .settings(settings -> settings
-                    .nativePermissions(false)
-            )
+            .settings(settings->settings
+                              .nativePermissions(false)
+                     )
             .invalidUsage(new PWInvalidUsageHandler())
             .argument(GameMode.class, new GamemodeParameter())
             .argument(PortalType.class, new PortalParameter())
@@ -273,6 +279,7 @@ public class PhantomWorlds extends JavaPlugin {
    * @since v2.0.0
    */
   void registerListeners() {
+
     getLogger().info("Registering listeners...");
     getServer().getPluginManager().registerEvents(new PlayerChangeWorldListener(this), this);
     getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
@@ -289,6 +296,7 @@ public class PhantomWorlds extends JavaPlugin {
    * @since v2.0.0
    */
   void miscStartupProcedures() {
+
     getLogger().info("Running misc startup procedures...");
 
     /* bStats Metrics */
@@ -313,36 +321,41 @@ public class PhantomWorlds extends JavaPlugin {
 
             messages.getConfig().getStringList("update-checker.console.text")
                     .forEach(message->getLogger().info(message
-                            .replace("%currentVersion%",
-                                    updateCheckerResult.getCurrentVersion())
-                            .replace("%latestVersion%", updateCheckerResult.getLatestVersion())
-                    ));
+                                                               .replace("%currentVersion%",
+                                                                        updateCheckerResult.getCurrentVersion())
+                                                               .replace("%latestVersion%", updateCheckerResult.getLatestVersion())
+                                                      ));
           }
         });
-      } catch(Exception ex) {
+      } catch(final Exception ex) {
         getLogger().warning("Unable to check for updates - check your internet connection: "
-                + ex.getMessage());
+                            + ex.getMessage());
       }
     }
   }
 
   public static PhantomWorlds instance() {
+
     return instance;
   }
 
   public static Logger logger() {
+
     return instance.getLogger();
   }
 
   public static WorldManager worldManager() {
+
     return instance.worldManager;
   }
 
   public static VersionCompatibility compatibility() {
+
     return compatibility;
   }
 
   private ArrayList<String> generateCreateSuggestions() {
+
     final ArrayList<String> suggestions = new ArrayList<>();
 
     suggestions.addAll(addTrueFalseValues("generatestructures"));
@@ -373,7 +386,7 @@ public class PhantomWorlds extends JavaPlugin {
 
     suggestions.add("seed:");
 
-    for(WorldType worldType : WorldType.values()) {
+    for(final WorldType worldType : WorldType.values()) {
       suggestions.add("type:" + worldType.toString());
     }
 
@@ -381,6 +394,7 @@ public class PhantomWorlds extends JavaPlugin {
   }
 
   private ArrayList<String> addTrueFalseValues(String option) {
+
     final ArrayList<String> list = new ArrayList<>();
     option = option + ":";
 
@@ -391,6 +405,7 @@ public class PhantomWorlds extends JavaPlugin {
   }
 
   public FoliaLib folia() {
+
     return folia;
   }
 }

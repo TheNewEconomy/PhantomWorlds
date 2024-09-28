@@ -31,6 +31,7 @@ import org.bukkit.entity.Player;
 public class SpawnCommand {
 
   public static void onCommand(final CommandSender sender, final World world, final Player player) {
+
     if(!(sender instanceof Player) && !Utils.checkWorld(sender, "command.phantomworlds.subcommands.spawn.usage", world)) {
       return;
     }

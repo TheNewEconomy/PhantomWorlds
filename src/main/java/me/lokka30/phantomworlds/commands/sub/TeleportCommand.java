@@ -31,6 +31,7 @@ import org.bukkit.entity.Player;
 public class TeleportCommand {
 
   public static void onCommand(final CommandSender sender, final World world, final Player player) {
+
     if(!Utils.checkWorld(sender, "command.phantomworlds.subcommands.teleport.usage", world)) {
       return;
     }

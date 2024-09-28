@@ -25,7 +25,6 @@ import dev.rollczi.litecommands.suggestion.SuggestionContext;
 import dev.rollczi.litecommands.suggestion.SuggestionResult;
 import me.lokka30.phantomworlds.PhantomWorlds;
 import org.bukkit.command.CommandSender;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,8 @@ public class PotionEffectParameter extends ArgumentResolver<CommandSender, Strin
   }
 
   @Override
-  protected ParseResult<String> parse(Invocation<CommandSender> invocation, Argument<String> context, String argument) {
+  protected ParseResult<String> parse(final Invocation<CommandSender> invocation, final Argument<String> context, final String argument) {
+
     if(argument.isEmpty()) {
       return ParseResult.failure("Invalid effect argument.");
     }
@@ -55,7 +55,8 @@ public class PotionEffectParameter extends ArgumentResolver<CommandSender, Strin
   }
 
   @Override
-  public SuggestionResult suggest(Invocation<CommandSender> invocation, Argument<String> argument, SuggestionContext context) {
+  public SuggestionResult suggest(final Invocation<CommandSender> invocation, final Argument<String> argument, final SuggestionContext context) {
+
     return SuggestionResult.of(POTION_EFFECTS);
   }
 }

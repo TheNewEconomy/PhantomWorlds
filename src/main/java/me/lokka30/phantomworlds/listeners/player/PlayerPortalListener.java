@@ -39,12 +39,14 @@ public class PlayerPortalListener implements Listener {
 
   final PhantomWorlds plugin;
 
-  public PlayerPortalListener(PhantomWorlds plugin) {
+  public PlayerPortalListener(final PhantomWorlds plugin) {
+
     this.plugin = plugin;
   }
 
   @EventHandler
-  public void onPortal(PlayerPortalEvent event) {
+  public void onPortal(final PlayerPortalEvent event) {
+
     if(event.getFrom().getWorld() == null) return;
 
     final String cfgPath = "worlds-to-load." + event.getFrom().getWorld().getName();
@@ -85,14 +87,14 @@ public class PlayerPortalListener implements Listener {
       try {
         event.setCancelled(true);
         event.getPlayer().transfer(details[0], port);
-      } catch(NoSuchMethodError ignore) {
+      } catch(final NoSuchMethodError ignore) {
         (new MultiMessage(
                 PhantomWorlds.instance().messages.getConfig()
                         .getStringList("common.invalidtransfer"), Arrays.asList(
                 new MultiMessage.Placeholder("prefix",
-                        PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                        true)
-        ))).send(event.getPlayer());
+                                             PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                             true)
+                                                                               ))).send(event.getPlayer());
       }
     }
   }

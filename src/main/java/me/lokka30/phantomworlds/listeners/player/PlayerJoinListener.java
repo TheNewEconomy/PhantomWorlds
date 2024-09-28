@@ -35,13 +35,16 @@ public class PlayerJoinListener implements Listener {
 
   final PhantomWorlds plugin;
 
-  public PlayerJoinListener(PhantomWorlds plugin) {
+  public PlayerJoinListener(final PhantomWorlds plugin) {
+
     this.plugin = plugin;
   }
 
   @EventHandler
-  public void onJoin(PlayerJoinEvent event) {
+  public void onJoin(final PlayerJoinEvent event) {
+
     final String spawnWorld = PhantomWorlds.instance().settings.getConfig().getString("spawning.default-world", "world");
+    final boolean spawnAlways = PhantomWorlds.instance().settings.getConfig().getBoolean("spawning.respawn-always", false);
     final World sWorld = Bukkit.getWorld(spawnWorld);
     if(sWorld == null) {
       plugin.getLogger().warning("Configured spawn world doesn't exist! Not changing player spawn location.");
@@ -49,7 +52,7 @@ public class PlayerJoinListener implements Listener {
     }
 
     //We don't manage so send the player to the spawn world
-    if(!event.getPlayer().hasPlayedBefore() && PhantomWorlds.instance().settings.getConfig().getBoolean("spawning.default-first", true)) {
+    if(spawnAlways || !event.getPlayer().hasPlayedBefore() && PhantomWorlds.instance().settings.getConfig().getBoolean("spawning.default-first", true)) {
       event.getPlayer().teleport(Utils.parseSpawn(sWorld));
     }
   }

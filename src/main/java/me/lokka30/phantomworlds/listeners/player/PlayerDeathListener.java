@@ -33,12 +33,14 @@ public class PlayerDeathListener implements Listener {
 
   final PhantomWorlds plugin;
 
-  public PlayerDeathListener(PhantomWorlds plugin) {
+  public PlayerDeathListener(final PhantomWorlds plugin) {
+
     this.plugin = plugin;
   }
 
   @EventHandler
-  public void onDeath(PlayerDeathEvent event) {
+  public void onDeath(final PlayerDeathEvent event) {
+
     if(!PhantomWorlds.instance().settings.getConfig().getBoolean("spawning.respawn-world", false)) {
       return;
     }

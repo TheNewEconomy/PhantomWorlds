@@ -36,12 +36,13 @@ public class PlayerChangeWorldListener implements Listener {
 
   final PhantomWorlds plugin;
 
-  public PlayerChangeWorldListener(PhantomWorlds plugin) {
+  public PlayerChangeWorldListener(final PhantomWorlds plugin) {
+
     this.plugin = plugin;
   }
 
   @EventHandler
-  public void onChangeWorld(PlayerChangedWorldEvent event) {
+  public void onChangeWorld(final PlayerChangedWorldEvent event) {
 
     //Check if this world has a PhantomWorlds managed spawn. If so, teleport the player there.
     final String spawnPath = "worlds-to-load." + event.getPlayer().getWorld().getName() + ".spawn";
@@ -63,7 +64,7 @@ public class PlayerChangeWorldListener implements Listener {
 
     final String cfgPrevPath = "worlds-to-load." + event.getFrom().getName();
     if(PhantomWorlds.instance().data.getConfig().contains(cfgPrevPath + ".effects") &&
-            PhantomWorlds.instance().data.getConfig().isConfigurationSection(cfgPrevPath + ".effects")) {
+       PhantomWorlds.instance().data.getConfig().isConfigurationSection(cfgPrevPath + ".effects")) {
       for(final String effName : PhantomWorlds.instance().data.getConfig().getConfigurationSection(cfgPrevPath + ".effects").getKeys(false)) {
 
         final PotionEffectType type = PhantomWorlds.compatibility().findType(effName);
@@ -74,7 +75,7 @@ public class PlayerChangeWorldListener implements Listener {
     }
 
     if(PhantomWorlds.instance().data.getConfig().contains(cfgPath + ".effects") &&
-            PhantomWorlds.instance().data.getConfig().isConfigurationSection(cfgPath + ".effects") && !event.getPlayer().hasPermission("phantomworlds.world.bypass.effects")) {
+       PhantomWorlds.instance().data.getConfig().isConfigurationSection(cfgPath + ".effects") && !event.getPlayer().hasPermission("phantomworlds.world.bypass.effects")) {
 
       for(final String effName : PhantomWorlds.instance().data.getConfig().getConfigurationSection(cfgPath + ".effects").getKeys(false)) {
         final int duration = PhantomWorlds.instance().data.getConfig().getInt(cfgPath + ".effects." + effName + ".duration", -1);

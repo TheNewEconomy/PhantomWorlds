@@ -10,21 +10,25 @@ public class UpdateCheckerResult {
   private final String currentVersion;
   private final String latestVersion;
 
-  public UpdateCheckerResult(boolean outdated, String currentVersion, String latestVersion) {
+  public UpdateCheckerResult(final boolean outdated, final String currentVersion, final String latestVersion) {
+
     this.outdated = outdated;
     this.currentVersion = currentVersion;
     this.latestVersion = latestVersion;
   }
 
   public boolean isOutdated() {
+
     return outdated;
   }
 
   public String getCurrentVersion() {
+
     return currentVersion;
   }
 
   public String getLatestVersion() {
+
     return latestVersion;
   }
 }

@@ -19,7 +19,6 @@ package me.lokka30.phantomworlds.comatibility;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
-import org.bukkit.WorldCreator;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
@@ -35,13 +34,14 @@ public interface VersionCompatibility {
 
   /**
    * Used to return a list of potion effects suggestions for our /pw set effects command.
+   *
    * @return The list containing the potion effects that exist.
    */
   default List<String> potionEffectSuggestions() {
 
     final List<String> effects = new ArrayList<>();
 
-    for(PotionEffectType value : PotionEffectType.values()) {
+    for(final PotionEffectType value : PotionEffectType.values()) {
 
       if(value == null) { //for some reason there is a null value here
         continue;
@@ -54,28 +54,36 @@ public interface VersionCompatibility {
 
   /**
    * Used to find an {@link PotionEffectType effect type} based on a string.
+   *
    * @param effectType The effect type.
+   *
    * @return The effect type if found, otherwise null
    */
   default PotionEffectType findType(final String effectType) {
+
     return PotionEffectType.getByKey(NamespacedKey.fromString(effectType));
   }
 
   /**
    * Used to check if world is hardcore or not.
+   *
    * @param world The world to check.
+   *
    * @return True if hardcore, otherwise false.
    */
   default boolean hardcore(final World world) {
+
     return world.isHardcore();
   }
 
   /**
    * Used to apply the hardcore value to the world.
-   * @param world The world to apply to.
+   *
+   * @param world    The world to apply to.
    * @param hardcore Hardcore value to set for the world.
    */
-  default void applyHardcore(World world, final boolean hardcore) {
+  default void applyHardcore(final World world, final boolean hardcore) {
+
     world.setHardcore(hardcore);
   }
 }

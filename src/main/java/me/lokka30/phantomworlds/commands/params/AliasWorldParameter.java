@@ -38,8 +38,9 @@ import java.util.List;
  * @since 2.0.5.0
  */
 public class AliasWorldParameter extends ArgumentResolver<CommandSender, World> {
+
   @Override
-  protected ParseResult<World> parse(Invocation<CommandSender> invocation, Argument<World> context, String argument) {
+  protected ParseResult<World> parse(final Invocation<CommandSender> invocation, final Argument<World> context, final String argument) {
 
     final World world = PhantomWorlds.worldManager().findWorld(argument);
     if(world == null) {
@@ -50,7 +51,7 @@ public class AliasWorldParameter extends ArgumentResolver<CommandSender, World> 
   }
 
   @Override
-  public SuggestionResult suggest(Invocation<CommandSender> invocation, Argument<World> argument, SuggestionContext context) {
+  public SuggestionResult suggest(final Invocation<CommandSender> invocation, final Argument<World> argument, final SuggestionContext context) {
 
     final List<String> worlds = new ArrayList<>(PhantomWorlds.worldManager().aliases.keySet());
 

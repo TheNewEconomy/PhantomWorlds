@@ -36,7 +36,7 @@ import java.util.Arrays;
  */
 public class SetSpawnCommand {
 
-  public static void onCommand(final CommandSender sender, Double x, Double y, Double z, World world, Float yaw, Float pitch) {
+  public static void onCommand(final CommandSender sender, final Double x, final Double y, final Double z, final World world, final Float yaw, final Float pitch) {
 
     if(!(sender instanceof Player)) {
       if(x == null || y == null || z == null || world == null) {
@@ -47,7 +47,7 @@ public class SetSpawnCommand {
                         new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
                                 .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                         new MultiMessage.Placeholder("label", "setspawn", false)
-                ))).send(sender);
+                             ))).send(sender);
         return;
       }
     }
@@ -88,7 +88,7 @@ public class SetSpawnCommand {
       //PhantomWorlds doesn't manage the spawn here so let Mojang deal with it.
       try {
         finalWorld.setSpawnLocation(new Location(finalWorld, finalX, finalY, finalZ, finalYaw, finalPitch));
-      } catch(NoSuchMethodError ignore) {
+      } catch(final NoSuchMethodError ignore) {
         //This is dumb that the setSpawn method in spigot uses integers... great design.
         finalWorld.setSpawnLocation((int)finalX, (int)finalY, (int)finalZ);
         // 1.8 doesn't let us set pitch and yaw ... yawn
@@ -99,14 +99,14 @@ public class SetSpawnCommand {
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.setspawn.success"), Arrays.asList(
             new MultiMessage.Placeholder("prefix",
-                    PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                    true),
+                                         PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                         true),
             new MultiMessage.Placeholder("world", finalWorld.getName(), false),
             new MultiMessage.Placeholder("x", String.valueOf(Utils.roundTwoDecimalPlaces(finalX)), false),
             new MultiMessage.Placeholder("y", String.valueOf(Utils.roundTwoDecimalPlaces(finalY)), false),
             new MultiMessage.Placeholder("z", String.valueOf(Utils.roundTwoDecimalPlaces(finalZ)), false),
             new MultiMessage.Placeholder("yaw", String.valueOf(Utils.roundTwoDecimalPlaces(finalYaw)), false),
             new MultiMessage.Placeholder("pitch", String.valueOf(Utils.roundTwoDecimalPlaces(finalPitch)), false)
-    ))).send(sender);
+                                                                                                       ))).send(sender);
   }
 }

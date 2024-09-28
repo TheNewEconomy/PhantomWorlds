@@ -22,6 +22,7 @@ public class FileManager {
    * @since v2.0.0
    */
   public void init(final PWFile pwFile) {
+
     PhantomWorlds.logger().info("Loading file " + pwFile + "...");
 
     try {
@@ -44,7 +45,7 @@ public class FileManager {
         default:
           break;
       }
-    } catch(IOException ex) {
+    } catch(final IOException ex) {
       PhantomWorlds.logger().severe("Unable to init file " + pwFile + ". Stack trace:");
       ex.printStackTrace();
     }
@@ -56,6 +57,7 @@ public class FileManager {
    * @since v2.0.0
    */
   private void load(final PWFile pwFile) throws IOException {
+
     switch(pwFile) {
       case SETTINGS:
         PhantomWorlds.instance().settings.load();
@@ -114,20 +116,20 @@ public class FileManager {
         switch(currentVersion) {
           case 1:
             PhantomWorlds.logger().info("Automatically migrating the " + pwFile
-                    + " file to the latest format (it was outdated).");
+                                        + " file to the latest format (it was outdated).");
 
             if(!PhantomWorlds.instance().data.getConfig().contains("worlds")) {
               return;
             }
 
-            for(String worldName : PhantomWorlds.instance().data.getConfig().getStringList("worlds")) {
+            for(final String worldName : PhantomWorlds.instance().data.getConfig().getStringList("worlds")) {
               if(Bukkit.getWorld(worldName) != null) {
                 continue; // Don't add worlds that are already loaded (most likely by Bukkit).
               }
 
               PhantomWorlds.instance().data.getConfig()
                       .set("worlds-to-load." + worldName + ".environment",
-                              World.Environment.NORMAL.toString());
+                           World.Environment.NORMAL.toString());
             }
 
             PhantomWorlds.instance().data.getConfig().set("worlds", null);
@@ -147,9 +149,10 @@ public class FileManager {
   }
 
   void alertIncorrectVersion(final PWFile pwFile) {
+
     PhantomWorlds.logger().severe("You are running the incorrect version of the " +
-            "file '" + pwFile + "'! Please back it up and allow the plugin to generate a new file, "
-            + "or you will most likely experience errors.");
+                                  "file '" + pwFile + "'! Please back it up and allow the plugin to generate a new file, "
+                                  + "or you will most likely experience errors.");
   }
 
   /**
@@ -159,7 +162,7 @@ public class FileManager {
    * @since v2.0.0
    */
   public enum PWFile {
-    SETTINGS(3),
+    SETTINGS(4),
     ADVANCED_SETTINGS(1),
     MESSAGES(11),
     DATA(2);
@@ -167,6 +170,7 @@ public class FileManager {
     public final int latestFileVersion; // If == -1: 'do not migrate me!'
 
     PWFile(final int latestFileVersion) {
+
       this.latestFileVersion = latestFileVersion;
     }
   }

@@ -15,7 +15,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -43,6 +42,7 @@ public class WorldManager {
    * @since v2.0.0
    */
   public void loadManagedWorlds() {
+
     PhantomWorlds.logger().info("Loading managed worlds...");
 
     if(!PhantomWorlds.instance().data.getConfig().contains("worlds-to-load")) {
@@ -63,8 +63,8 @@ public class WorldManager {
     for(final String worldName : PhantomWorlds.instance().data.getConfig().getConfigurationSection("worlds-to-load").getKeys(false)) {
 
       if(worldName.equalsIgnoreCase(defaultWorld)
-              || worldName.startsWith(defaultWorld) && worldName.toLowerCase(Locale.ROOT).contains("nether")
-              || worldName.startsWith(defaultWorld) && worldName.toLowerCase(Locale.ROOT).contains("end")) {
+         || worldName.startsWith(defaultWorld) && worldName.toLowerCase(Locale.ROOT).contains("nether")
+         || worldName.startsWith(defaultWorld) && worldName.toLowerCase(Locale.ROOT).contains("end")) {
         continue;
       }
 
@@ -76,13 +76,13 @@ public class WorldManager {
 
     }
 
-    for(String worldName : worldsToDiscardFromDataFile) {
+    for(final String worldName : worldsToDiscardFromDataFile) {
       PhantomWorlds.instance().data.getConfig().set("worlds-to-load." + worldName, null);
     }
 
     try {
       PhantomWorlds.instance().data.save();
-    } catch(IOException ex) {
+    } catch(final IOException ex) {
       PhantomWorlds.logger().severe("Unable to save data file. Stack trace:");
       ex.printStackTrace();
     }
@@ -90,7 +90,9 @@ public class WorldManager {
 
   /**
    * Used to load a world based on the name.
+   *
    * @param worldName The name of the world.
+   *
    * @return The {@link WorldLoadResponse response} from the loading process.
    */
   public WorldLoadResponse loadWorld(final String worldName) {
@@ -105,7 +107,7 @@ public class WorldManager {
 
       // The world was deleted/moved by the user so it must be re-imported. PW should no longer attempt to load that world.
       PhantomWorlds.logger().info("Discarding world '" + worldName + "' from PhantomWorlds' "
-              + "data file as it no longer exists on the server.");
+                                  + "data file as it no longer exists on the server.");
       return WorldLoadResponse.INVALID;
     }
 
@@ -120,6 +122,7 @@ public class WorldManager {
   }
 
   public WorldCopyResponse copyWorld(final String worldName, final String newWorldName) {
+
     final World world = Bukkit.getWorld(worldName);
     if(world == null) {
       return WorldCopyResponse.INVALID;
@@ -141,7 +144,7 @@ public class WorldManager {
       pworld.save();
       loadWorld(newWorldName);
 
-    } catch(Exception ignore) {
+    } catch(final Exception ignore) {
       return WorldCopyResponse.INVALID;
     }
 
@@ -155,6 +158,7 @@ public class WorldManager {
    * @since v2.0.0
    */
   public PhantomWorld getPhantomWorldFromData(final String name) {
+
     final String cfgPath = "worlds-to-load." + name + ".";
 
     if(PhantomWorlds.instance().data.getConfig().contains(cfgPath + "alias")) {
@@ -167,7 +171,7 @@ public class WorldManager {
             name,
             World.Environment.valueOf(
                     PhantomWorlds.instance().data.getConfig().getString(cfgPath + "environment", "NORMAL")
-            ),
+                                     ),
             PhantomWorlds.instance().data.getConfig().getBoolean(cfgPath + "generateStructures", true),
             PhantomWorlds.instance().data.getConfig().getString(cfgPath + "generator", null),
             PhantomWorlds.instance().data.getConfig().getString(cfgPath + "generatorSettings", null),
@@ -175,17 +179,17 @@ public class WorldManager {
             PhantomWorlds.instance().data.getConfig().getLong(cfgPath + "seed", 0),
             WorldType.valueOf(
                     PhantomWorlds.instance().data.getConfig().getString(cfgPath + "worldType", "NORMAL")
-            ),
+                             ),
             PhantomWorlds.instance().data.getConfig().getBoolean(cfgPath + "spawnMobs", true),
             PhantomWorlds.instance().data.getConfig().getBoolean(cfgPath + "spawnAnimals", true),
             PhantomWorlds.instance().data.getConfig().getBoolean(cfgPath + "keepSpawnInMemory", false),
             PhantomWorlds.instance().data.getConfig().getBoolean(cfgPath + "allowPvP", true),
             Difficulty.valueOf(
                     PhantomWorlds.instance().data.getConfig().getString(cfgPath + "difficulty", "NORMAL")
-            ),
+                              ),
             GameMode.valueOf(
                     PhantomWorlds.instance().data.getConfig().getString(cfgPath + "gameMode", "SURVIVAL")
-            )
+                            )
     );
     return world;
   }
@@ -197,10 +201,12 @@ public class WorldManager {
   }
 
   public boolean backupWorld(final String world) {
+
     return backupWorld(world, new File(PhantomWorlds.instance().getDataFolder(), PhantomWorlds.BACKUP_FOLDER));
   }
-  
+
   public boolean backupWorld(final String world, final File backupFolder) {
+
     final File worldFolder = new File(Bukkit.getWorldContainer(), world);
 
     try {
@@ -213,13 +219,14 @@ public class WorldManager {
 
       PhantomWorlds.logger().info("World '" + world + "' backed up to: " + worldBackupFolder.getPath());
       return true;
-    } catch (IOException e) {
+    } catch(final IOException e) {
       e.printStackTrace();
       return false;
     }
   }
 
   public boolean backupAndDeleteWorld(final String worldName) {
+
     final World world = Bukkit.getWorld(worldName);
 
     if(world == null) {

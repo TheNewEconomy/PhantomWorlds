@@ -37,6 +37,7 @@ import java.util.Arrays;
 public class SetGamemodeCommand {
 
   public static void onCommand(final CommandSender sender, final World world, final GameMode mode) {
+
     if(!Utils.checkWorld(sender, "command.phantomworlds.subcommands.setgamemode.usage", world)) {
       return;
     }
@@ -60,10 +61,10 @@ public class SetGamemodeCommand {
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.setgamemode.success"), Arrays.asList(
             new MultiMessage.Placeholder("prefix",
-                    PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                    true),
+                                         PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                         true),
             new MultiMessage.Placeholder("world", finalWorld.getName(), false),
             new MultiMessage.Placeholder("gamemode", mode.name(), false)
-    ))).send(sender);
+                                                                                                          ))).send(sender);
   }
 }

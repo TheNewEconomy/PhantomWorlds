@@ -26,8 +26,8 @@ import org.bukkit.command.CommandSender;
 
 import java.util.Arrays;
 
-import static me.lokka30.phantomworlds.misc.WorldCopyResponse.INVALID;
 import static me.lokka30.phantomworlds.misc.WorldCopyResponse.COPIED;
+import static me.lokka30.phantomworlds.misc.WorldCopyResponse.INVALID;
 
 /**
  * LoadCommand
@@ -44,10 +44,10 @@ public class CopyCommand {
               PhantomWorlds.instance().messages.getConfig()
                       .getStringList("command.phantomworlds.usages.copy"), Arrays.asList(
               new MultiMessage.Placeholder("prefix",
-                      PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                      true),
+                                           PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                           true),
               new MultiMessage.Placeholder("label", "pw", false)
-      ))).send(sender);
+                                                                                        ))).send(sender);
       return;
     }
 
@@ -60,7 +60,7 @@ public class CopyCommand {
                               .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                       new MultiMessage.Placeholder("world", newWorld, false),
                       new MultiMessage.Placeholder("label", "pw", false)
-              ))).send(sender);
+                           ))).send(sender);
       return;
     }
 
@@ -75,7 +75,7 @@ public class CopyCommand {
                               .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                       new MultiMessage.Placeholder("world", world.getFolder(), false),
                       new MultiMessage.Placeholder("label", "pw", false)
-              ))).send(sender);
+                           ))).send(sender);
       return;
     }
 
@@ -89,7 +89,7 @@ public class CopyCommand {
                               .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                       new MultiMessage.Placeholder("world", world.getFolder(), false),
                       new MultiMessage.Placeholder("label", "pw", false)
-              ))).send(sender);
+                           ))).send(sender);
       return;
     }
 
@@ -101,6 +101,6 @@ public class CopyCommand {
                             .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                     new MultiMessage.Placeholder("world", world.getFolder(), false),
                     new MultiMessage.Placeholder("new_world", newWorld, false)
-            ))).send(sender);
+                         ))).send(sender);
   }
 }

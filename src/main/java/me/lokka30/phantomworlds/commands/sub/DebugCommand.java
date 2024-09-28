@@ -40,9 +40,9 @@ public class DebugCommand {
         break;
       default:
         sender.sendMessage(MessageUtils.colorizeStandardCodes(
-                        "&b&lPhantomWorlds: &7Invalid debug method '%method%'.")
-                .replace("%method%", parsed)
-        );
+                                           "&b&lPhantomWorlds: &7Invalid debug method '%method%'.")
+                                   .replace("%method%", parsed)
+                          );
 
         sender.sendMessage(MessageUtils.colorizeStandardCodes(
                 "&b&lPhantomWorlds: &7Note: Please do not run this subcommand unless you are sure you are meant to be doing so."));

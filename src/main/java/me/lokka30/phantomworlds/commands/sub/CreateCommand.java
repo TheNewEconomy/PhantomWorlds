@@ -54,7 +54,7 @@ public class CreateCommand {
                               .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
                       new MultiMessage.Placeholder("world", worldName, false),
                       new MultiMessage.Placeholder("label", "pw", false)
-              ))).send(sender);
+                           ))).send(sender);
       return;
     }
 
@@ -69,7 +69,7 @@ public class CreateCommand {
                       new MultiMessage.Placeholder("types", String.join(
                               PhantomWorlds.instance().messages.getConfig().getString("common.list-delimiter", "&7, &b"),
                               Utils.enumValuesToStringList(World.Environment.values())), true)
-              ))).send(sender);
+                           ))).send(sender);
       return;
     }
 
@@ -101,10 +101,10 @@ public class CreateCommand {
                                 PhantomWorlds.instance().messages.getConfig()
                                         .getString("common.list-delimiter", "&7, &b"),
                                 Arrays.asList("genStructures", "gen", "genSettings", "hardcore",
-                                        "seed", "type", "spawnMobs", "spawnAnimals",
-                                        "keepSpawnInMemory", "allowPvP", "difficulty", "gamemode")
-                        ), true)
-                ))).send(sender);
+                                              "seed", "type", "spawnMobs", "spawnAnimals",
+                                              "keepSpawnInMemory", "allowPvP", "difficulty", "gamemode")
+                                                                           ), true)
+                             ))).send(sender);
         return;
       }
 
@@ -147,7 +147,7 @@ public class CreateCommand {
         case "seed":
           try {
             seed = Long.valueOf(value.toString());
-          } catch(NumberFormatException ex) {
+          } catch(final NumberFormatException ex) {
             (new MultiMessage(
                     PhantomWorlds.instance().messages.getConfig().getStringList(
                             "command.phantomworlds.subcommands.create.options.invalid-value"),
@@ -157,8 +157,8 @@ public class CreateCommand {
                             new MultiMessage.Placeholder("value", value.toString(), false),
                             new MultiMessage.Placeholder("option", option, false),
                             new MultiMessage.Placeholder("expected", "Long (any number)",
-                                    false)
-                    ))).send(sender);
+                                                         false)
+                                 ))).send(sender);
             return;
           }
           break;
@@ -167,7 +167,7 @@ public class CreateCommand {
           try {
             worldType = WorldType.valueOf(
                     value.toString().toUpperCase(Locale.ROOT));
-          } catch(IllegalArgumentException ex) {
+          } catch(final IllegalArgumentException ex) {
             (new MultiMessage(
                     PhantomWorlds.instance().messages.getConfig().getStringList(
                             "command.phantomworlds.subcommands.create.options.invalid-value-list"),
@@ -181,7 +181,7 @@ public class CreateCommand {
                                     PhantomWorlds.instance().messages.getConfig()
                                             .getString("common.list-delimiter", "&7, &b"),
                                     Utils.enumValuesToStringList(WorldType.values())), true)
-                    ))).send(sender);
+                                 ))).send(sender);
             return;
           }
           break;
@@ -230,7 +230,7 @@ public class CreateCommand {
           try {
             difficulty = Difficulty.valueOf(
                     value.toString().toUpperCase(Locale.ROOT));
-          } catch(IllegalArgumentException ex) {
+          } catch(final IllegalArgumentException ex) {
             (new MultiMessage(
                     PhantomWorlds.instance().messages.getConfig().getStringList(
                             "command.phantomworlds.subcommands.create.options.invalid-value-list"),
@@ -244,7 +244,7 @@ public class CreateCommand {
                                     PhantomWorlds.instance().messages.getConfig()
                                             .getString("common.list-delimiter", "&7, &b"),
                                     Utils.enumValuesToStringList(Difficulty.values())), true)
-                    ))).send(sender);
+                                 ))).send(sender);
             return;
           }
           break;
@@ -260,10 +260,10 @@ public class CreateCommand {
                                   PhantomWorlds.instance().messages.getConfig()
                                           .getString("common.list-delimiter", "&7, &b"),
                                   Arrays.asList("genStructures", "gen", "genSettings", "hardcore",
-                                          "seed", "type", "spawnMobs", "spawnAnimals",
-                                          "keepSpawnInMemory", "allowPvP", "difficulty")
-                          ), true)
-                  ))).send(sender);
+                                                "seed", "type", "spawnMobs", "spawnAnimals",
+                                                "keepSpawnInMemory", "allowPvP", "difficulty")
+                                                                             ), true)
+                               ))).send(sender);
           return;
       }
     }
@@ -281,20 +281,20 @@ public class CreateCommand {
                     .getStringList("command.phantomworlds.subcommands.create.creation.starting"),
             Arrays.asList(
                     new MultiMessage.Placeholder("prefix",
-                            PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                            true),
+                                                 PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                                 true),
                     new MultiMessage.Placeholder("world", worldName, false)
-            ))).send(sender);
+                         ))).send(sender);
 
     (new MultiMessage(
             PhantomWorlds.instance().messages.getConfig().getStringList(
                     "command.phantomworlds.subcommands.create.creation.saving-world-data"),
             Arrays.asList(
                     new MultiMessage.Placeholder("prefix",
-                            PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                            true),
+                                                 PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                                 true),
                     new MultiMessage.Placeholder("world", worldName, false)
-            ))).send(sender);
+                         ))).send(sender);
 
     pworld.save();
 
@@ -303,10 +303,10 @@ public class CreateCommand {
                     "command.phantomworlds.subcommands.create.creation.constructing-world"),
             Arrays.asList(
                     new MultiMessage.Placeholder("prefix",
-                            PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                            true),
+                                                 PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                                 true),
                     new MultiMessage.Placeholder("world", worldName, false)
-            ))).send(sender);
+                         ))).send(sender);
 
     pworld.create();
 
@@ -315,11 +315,11 @@ public class CreateCommand {
                     .getStringList("command.phantomworlds.subcommands.create.creation.complete"),
             Arrays.asList(
                     new MultiMessage.Placeholder("prefix",
-                            PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                            true),
+                                                 PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                                 true),
                     new MultiMessage.Placeholder("world", worldName, false),
                     new MultiMessage.Placeholder("time", Long.toString(quickTimer.getDuration()), false),
                     new MultiMessage.Placeholder("label", "pw", false)
-            ))).send(sender);
+                         ))).send(sender);
   }
 }

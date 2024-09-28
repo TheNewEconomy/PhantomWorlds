@@ -37,17 +37,17 @@ public class InfoCommand {
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.info.success"), Arrays.asList(
             new MultiMessage.Placeholder("prefix",
-                    PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                    true),
+                                         PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                         true),
             new MultiMessage.Placeholder("version", PhantomWorlds.instance().getDescription().getVersion(), false),
             new MultiMessage.Placeholder("authors",
-                    String.join(PhantomWorlds.instance().messages.getConfig().getString("common.list-delimiter", "&7, &b"),
-                            PhantomWorlds.instance().getDescription().getAuthors()), false),
+                                         String.join(PhantomWorlds.instance().messages.getConfig().getString("common.list-delimiter", "&7, &b"),
+                                                     PhantomWorlds.instance().getDescription().getAuthors()), false),
             new MultiMessage.Placeholder("contributors",
-                    String.join(PhantomWorlds.instance().messages.getConfig().getString("common.list-delimiter", "&7, &b"),
-                            PhantomWorlds.CONTRIBUTORS), false),
+                                         String.join(PhantomWorlds.instance().messages.getConfig().getString("common.list-delimiter", "&7, &b"),
+                                                     PhantomWorlds.CONTRIBUTORS), false),
             new MultiMessage.Placeholder("supportedServerVersions", PhantomWorlds.instance().supportedServerVersions,
-                    false)
-    ))).send(sender);
+                                         false)
+                                                                                                   ))).send(sender);
   }
 }

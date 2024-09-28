@@ -32,12 +32,14 @@ public class WorldInitListener implements Listener {
 
   final PhantomWorlds plugin;
 
-  public WorldInitListener(PhantomWorlds plugin) {
+  public WorldInitListener(final PhantomWorlds plugin) {
+
     this.plugin = plugin;
   }
 
   @EventHandler
-  public void onInit(WorldInitEvent event) {
+  public void onInit(final WorldInitEvent event) {
+
     if(PhantomWorlds.instance().data.getConfig().contains("worlds-to-load." + event.getWorld().getName())) {
 
     }

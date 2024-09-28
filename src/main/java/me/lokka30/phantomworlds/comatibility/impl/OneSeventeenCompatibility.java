@@ -42,7 +42,7 @@ public class OneSeventeenCompatibility implements VersionCompatibility {
 
     final List<String> effects = new ArrayList<>();
 
-    for(PotionEffectType value : PotionEffectType.values()) {
+    for(final PotionEffectType value : PotionEffectType.values()) {
 
       if(value == null) { //for some reason there is a null value here
         continue;
@@ -62,7 +62,8 @@ public class OneSeventeenCompatibility implements VersionCompatibility {
    * @return The effect type if found, otherwise null
    */
   @Override
-  public PotionEffectType findType(String effectType) {
+  public PotionEffectType findType(final String effectType) {
+
     return PotionEffectType.getByName(effectType);
   }
 
@@ -74,7 +75,8 @@ public class OneSeventeenCompatibility implements VersionCompatibility {
    * @return True if hardcore, otherwise false.
    */
   @Override
-  public boolean hardcore(World world) {
+  public boolean hardcore(final World world) {
+
     return false;
   }
 
@@ -85,7 +87,7 @@ public class OneSeventeenCompatibility implements VersionCompatibility {
    * @param hardcore Hardcore value to set for the world.
    */
   @Override
-  public void applyHardcore(World world, boolean hardcore) {
+  public void applyHardcore(final World world, final boolean hardcore) {
     //do nothing, not applicable to these versions.
   }
 }

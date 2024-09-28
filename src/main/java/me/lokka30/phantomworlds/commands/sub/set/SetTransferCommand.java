@@ -37,6 +37,7 @@ import java.util.Arrays;
 public class SetTransferCommand {
 
   public static void onCommand(final CommandSender sender, final World world, final PortalType portal, final String ip) {
+
     if(!Utils.checkWorld(sender, "command.phantomworlds.subcommands.settransfer.usage", world)) {
       return;
     }
@@ -62,11 +63,11 @@ public class SetTransferCommand {
             PhantomWorlds.instance().messages.getConfig()
                     .getStringList("command.phantomworlds.subcommands.settransfer.success"), Arrays.asList(
             new MultiMessage.Placeholder("prefix",
-                    PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
-                    true),
+                                         PhantomWorlds.instance().messages.getConfig().getString("common.prefix", "&b&lPhantomWorlds: &7"),
+                                         true),
             new MultiMessage.Placeholder("world", finalWorld.getName(), false),
             new MultiMessage.Placeholder("portal", portal.name(), false),
             new MultiMessage.Placeholder("transfer", ip, false)
-    ))).send(sender);
+                                                                                                          ))).send(sender);
   }
 }
