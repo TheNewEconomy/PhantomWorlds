@@ -103,12 +103,22 @@ public class WorldManager {
 
     final File worldFolder = new File(Bukkit.getWorldContainer(), worldName);
     final File levelDat = new File(worldFolder, "level.dat");
+
+    // The world was deleted/moved by the user.
     if(!worldFolder.exists() || !levelDat.exists()) {
 
-      // The world was deleted/moved by the user so it must be re-imported. PW should no longer attempt to load that world.
-      PhantomWorlds.logger().info("Discarding world '" + worldName + "' from PhantomWorlds' "
-                                  + "data file as it no longer exists on the server.");
-      return WorldLoadResponse.INVALID;
+      if(PhantomWorlds.instance().settings.getConfig().getBoolean("regenerate-missing-worlds", false)) {
+        // PW should regenerate new world data as per the user's configuration.
+        PhantomWorlds.logger().info("Can not find world '" + worldName + "' from PhantomWorlds' "
+                + "data file! Regenerating world... ");
+        getPhantomWorldFromData(worldName).create();
+      }
+      else {
+        // PW should no longer attempt to load that world.
+        PhantomWorlds.logger().info("Discarding world '" + worldName + "' from PhantomWorlds' "
+                + "data file as it no longer exists on the server.");
+        return WorldLoadResponse.INVALID;
+      }
     }
 
     if(PhantomWorlds.instance().data.getConfig().getBoolean("worlds-to-load." + worldName + ".skip-autoload", false)) {
