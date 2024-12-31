@@ -32,6 +32,9 @@ delete-archive: true
 #Should worlds be automatically backed up to the backup folder?
 backup-scheduler: false
 
+#Should PW regenerate worlds in the config that are missing from disk?
+regenerate-missing-worlds: false
+
 #The time, in seconds, to back up every PhantomWorlds-managed world.
 backup-delay: 600
 
