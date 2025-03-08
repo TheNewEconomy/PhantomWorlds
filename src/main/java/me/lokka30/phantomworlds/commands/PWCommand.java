@@ -39,6 +39,7 @@ import me.lokka30.phantomworlds.commands.sub.SetSpawnCommand;
 import me.lokka30.phantomworlds.commands.sub.SpawnCommand;
 import me.lokka30.phantomworlds.commands.sub.TeleportCommand;
 import me.lokka30.phantomworlds.commands.sub.UnloadCommand;
+import me.lokka30.phantomworlds.commands.sub.set.SetBackupCommand;
 import me.lokka30.phantomworlds.commands.sub.set.SetEffectsCommand;
 import me.lokka30.phantomworlds.commands.sub.set.SetGamemodeCommand;
 import me.lokka30.phantomworlds.commands.sub.set.SetPortalCommand;
@@ -148,6 +149,14 @@ public class PWCommand {
   public void reload(@Context final CommandSender commandSender) {
 
     ReloadCommand.onCommand(commandSender);
+  }
+
+  @Execute(name = "set backup", aliases = { "set bu" })
+  @Permission("phantomworlds.command.phantomworlds.set.backup")
+  @Description("command.phantomworlds.help.setbackup")
+  public void setBackup(@Context final CommandSender commandSender, @Arg("world") final World world, @Arg("backup") final boolean backup) {
+
+    SetBackupCommand.onCommand(commandSender, world, backup);
   }
 
   @Execute(name = "set effects", aliases = { "set eff" })

@@ -53,6 +53,7 @@ permissions:
       phantomworlds.command.phantomworlds.list: true
       phantomworlds.command.phantomworlds.load: true
       phantomworlds.command.phantomworlds.setspawn: true
+      phantomworlds.command.phantomworlds.set.backup: true
       phantomworlds.command.phantomworlds.set.effects: true
       phantomworlds.command.phantomworlds.set.gamemode: true
       phantomworlds.command.phantomworlds.set.portal: true
@@ -101,6 +102,10 @@ permissions:
   phantomworlds.command.phantomworlds.setspawn:
     default: op
     description: 'Ability to run /pw setspawn'
+
+  phantomworlds.command.phantomworlds.set.backup:
+    default: op
+    description: 'Ability to run /pw set backup'
 
   phantomworlds.command.phantomworlds.set.effects:
     default: op

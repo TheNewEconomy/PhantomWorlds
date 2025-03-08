@@ -30,6 +30,7 @@ command:
       - '&8 &m->&b /%label% list &8- &7list loaded worlds'
       - '&8 &m->&b /%label% teleport &8- &7teleport to a loaded world''s spawnpoint'
       - '&8 &m->&b /%label% spawn [player] &8- &7teleport to the spawn of the current world'
+      - '&8 &m->&b /%label% set backup <world> <backup(true/false)> &8- &7set if backups are enabled for a specific world.'
       - '&8 &m->&b /%label% set effects <world> [effects] &8- &7set the potion effects to be applied to players in this world.'
       - '&8 &m->&b /%label% set gamemode <world> <gamemode> &8- &7set the gamemode for this world.'
       - '&8 &m->&b /%label% set portal <world> <portal type> <world to> &8- &7set where the specified portal type takes players in this world.'
@@ -54,6 +55,7 @@ command:
       tp: '&b/pw teleport <world> [player] &8- &7teleport to a loaded world''s spawnpoint'
       spawn: '&b/pw spawn &8- &7teleport to the spawn of the current world'
       debug: '&b/pw debug <type> &8- &7Change the debug mode for PhantomWorlds.'
+      setbackup: '&b/pw set backup <world> <backup(true/false)> &8- &7set if backups are enabled for a specific world.'
       seteffects: '&b/pw set effects <world> [effects] &8- &7set the potion effects to be applied to players in this world.'
       setgamemode: '&b/pw set gamemode <world> <gamemode> &8- &7set the gamemode for this world.'
       setportal: '&b/pw set portal <world> <portal type> <world to> &8- &7set where the specified portal type takes players in this world.'
@@ -263,6 +265,14 @@ command:
         reload-complete:
           - '%prefix% Reload complete.'
 
+      setbackup:
+
+        usage:
+          - '%prefix% Invalid usage, try ''&b/%label% set backup <world> <true/false> &8- &7''.'
+
+        success:
+          - '%prefix% Successfully set the backup of world ''&b%world%&7'' to ''&b%gamemode%&7''.'
+
       seteffects:
 
         usage:
@@ -378,5 +388,5 @@ command:
 
 # Do not touch anything here unless you know what you are doing.
 advanced:
-  file-version: 11
+  file-version: 12
   generated-with: '${project.version}'

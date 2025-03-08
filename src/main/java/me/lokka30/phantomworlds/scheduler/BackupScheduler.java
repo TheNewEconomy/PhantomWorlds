@@ -45,8 +45,16 @@ public class BackupScheduler extends BukkitRunnable {
     PhantomWorlds.logger().info("Running World Backup Task...");
 
     for(final World world : Bukkit.getWorlds()) {
-      PhantomWorlds.logger().info("Backing up world '" + world.getName() + "'...");
-      PhantomWorlds.worldManager().backupWorld(world.getName());
+
+      final String cfgPath = "worlds-to-load." + world.getName();
+      if(PhantomWorlds.instance().data.getConfig().contains(cfgPath)) {
+
+        if(PhantomWorlds.instance().data.getConfig().getBoolean(cfgPath + ".backup", true)) {
+
+          PhantomWorlds.logger().info("Backing up world '" + world.getName() + "'...");
+          PhantomWorlds.worldManager().backupWorld(world.getName());
+        }
+      }
     }
     PhantomWorlds.logger().info("World Backup Task has completed!");
   }
