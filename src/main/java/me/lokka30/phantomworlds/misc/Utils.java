@@ -358,7 +358,9 @@ public class Utils {
                                      @Nullable String worldName) {
 
     final Player targetPlayer;
-    if(targetPlayerName != null) {
+    if(targetPlayerName != null && !(sender instanceof Player)
+       || targetPlayerName != null && sender.hasPermission("phantomworlds.command.phantomworlds.teleport.other")) {
+
       targetPlayer = Bukkit.getPlayer(targetPlayerName);
 
       // If the target is offline or invisible to the sender, then stop
@@ -376,8 +378,10 @@ public class Utils {
       }
     } else {
       if(sender instanceof Player) {
+
         targetPlayer = (Player)sender;
       } else {
+
         (new MultiMessage(
                 PhantomWorlds.instance().messages.getConfig().getStringList(
                         "command.phantomworlds.subcommands." + subCommand + ".usage-console"),

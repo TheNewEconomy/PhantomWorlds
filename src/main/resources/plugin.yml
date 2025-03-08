@@ -5,7 +5,7 @@
 # /     /    | `.__/| /    |  \__/  `._.' /   '   / |,'  \,'    `._.' /     /\__ `___,' \___.'
 
 name: 'PhantomWorlds'
-version: '2.0.12'
+version: '2.0.13'
 description: 'The Robust World Manager for Minecraft Servers'
 authors: [ 'creatorfromhell', 'lokka30' ]
 website: 'https://github.com/lokka30/PhantomWorlds'
@@ -121,6 +121,10 @@ permissions:
   phantomworlds.command.phantomworlds.teleport:
     default: true
     description: 'Ability to run /pw teleport'
+
+  phantomworlds.command.phantomworlds.teleport.other:
+    default: op
+    description: 'Ability to run /pw teleport on other players'
 
   phantomworlds.command.phantomworlds.spawn:
     default: op
