@@ -29,6 +29,9 @@ spawning:
   #Should players be sent to the world spawn each time they change worlds?
   change: false
 
+#Should worlds be automatically imported after loading?
+import-auto: true
+
 #Should worlds deleted be moved to an archive folder in deletedworlds?
 delete-archive: true
 

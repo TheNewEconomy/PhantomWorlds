@@ -21,6 +21,8 @@ import me.lokka30.microlib.messaging.MultiMessage;
 import me.lokka30.phantomworlds.PhantomWorlds;
 import me.lokka30.phantomworlds.commands.utils.WorldFolder;
 import me.lokka30.phantomworlds.misc.WorldLoadResponse;
+import me.lokka30.phantomworlds.world.PhantomWorld;
+import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 
 import java.util.Arrays;

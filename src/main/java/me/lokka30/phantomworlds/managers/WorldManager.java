@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -105,6 +106,7 @@ public class WorldManager {
     final File levelDat = new File(worldFolder, "level.dat");
 
     // The world was deleted/moved by the user.
+    boolean created = false;
     if(!worldFolder.exists() || !levelDat.exists()) {
 
       if(PhantomWorlds.instance().settings.getConfig().getBoolean("regenerate-missing-worlds", false)) {
@@ -112,6 +114,7 @@ public class WorldManager {
         PhantomWorlds.logger().info("Can not find world '" + worldName + "' from PhantomWorlds' "
                 + "data file! Regenerating world... ");
         getPhantomWorldFromData(worldName).create();
+        created = true;
       }
       else {
         // PW should no longer attempt to load that world.
@@ -126,8 +129,33 @@ public class WorldManager {
       return WorldLoadResponse.CONFIG_SKIPPED;
     }
 
-    PhantomWorlds.logger().info("Loading world '" + worldName + "'...");
-    getPhantomWorldFromData(worldName).create();
+    if(!created) {
+      PhantomWorlds.logger().info("Loading world '" + worldName + "'...");
+      getPhantomWorldFromData(worldName).create();
+    }
+
+    if(PhantomWorlds.instance().settings.getConfig().getBoolean("import-auto", true)) {
+      PhantomWorlds.logger().info("Auto importing world '" + worldName + "'...");
+
+      final World world = Bukkit.getWorld(worldName);
+
+      final String cfgPath = "worlds-to-load." + world.getName() + ".";
+      if(!PhantomWorlds.instance().data.getConfig().contains(cfgPath)) {
+
+        final PhantomWorld pworld = new PhantomWorld(
+                world.getName(), world.getEnvironment(), world.canGenerateStructures(), null,
+                null, PhantomWorlds.compatibility().hardcore(world), world.getSeed(), world.getWorldType(), world.getAllowMonsters(),
+                world.getAllowAnimals(), world.getKeepSpawnInMemory(), world.getPVP(), world.getDifficulty(), GameMode.SURVIVAL
+        );
+        pworld.save();
+
+        PhantomWorlds.logger().info("Imported world '" + worldName + "'...");
+      } else {
+
+        PhantomWorlds.logger().info("Failed importing, because it already is world '" + worldName + "'...");
+      }
+    }
+
     return WorldLoadResponse.LOADED;
   }
 
