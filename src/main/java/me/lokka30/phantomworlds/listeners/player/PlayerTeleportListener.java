@@ -80,5 +80,7 @@ public class PlayerTeleportListener implements Listener {
 
       plugin.worldManager.tpAwaiting.remove(event.getPlayer().getUniqueId());
     }
+
+    PhantomWorlds.instance().lastLocations().put(event.getPlayer().getUniqueId() + "-" + event.getFrom().getWorld().getName(), event.getFrom());
   }
 }

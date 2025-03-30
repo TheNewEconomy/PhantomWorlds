@@ -422,6 +422,14 @@ public class Utils {
                     new MultiMessage.Placeholder("world", worldName, false)
                          )));
 
+    final String key = targetPlayer.getUniqueId() + "-" + world.getName();
+    if(PhantomWorlds.instance().lastLocations().containsKey(key)) {
+
+      System.out.println("sending to last location.");
+      targetPlayer.teleport(PhantomWorlds.instance().lastLocations().get(key));
+      return;
+    }
+
     targetPlayer.teleport(parseSpawn(world));
   }
 

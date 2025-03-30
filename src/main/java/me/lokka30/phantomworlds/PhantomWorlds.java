@@ -36,6 +36,7 @@ import me.lokka30.phantomworlds.scheduler.BackupScheduler;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.PortalType;
 import org.bukkit.World;
 import org.bukkit.WorldType;
@@ -46,6 +47,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -56,6 +60,8 @@ import java.util.logging.Logger;
  * @since v2.0.0
  */
 public class PhantomWorlds extends JavaPlugin {
+
+  protected Map<String, Location> lastLocations = new ConcurrentHashMap<>();
 
   public static final List<String> createTabs = new ArrayList<>();
 
@@ -68,7 +74,6 @@ public class PhantomWorlds extends JavaPlugin {
    *  - add ability to toggle vanish compatibility
    * - log in console (LogLevel:INFO) when a command is prevented due to a target player seemingly being vanished to the command sender.
    */
-
 
   private static PhantomWorlds instance;
 
@@ -402,6 +407,11 @@ public class PhantomWorlds extends JavaPlugin {
     list.add(option + "false");
 
     return list;
+  }
+
+  public Map<String, Location> lastLocations() {
+
+    return lastLocations;
   }
 
   public FoliaLib folia() {
