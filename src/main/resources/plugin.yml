@@ -5,7 +5,7 @@
 # /     /    | `.__/| /    |  \__/  `._.' /   '   / |,'  \,'    `._.' /     /\__ `___,' \___.'
 
 name: 'PhantomWorlds'
-version: '2.0.13'
+version: '2.0.14'
 description: 'The Robust World Manager for Minecraft Servers'
 authors: [ 'creatorfromhell', 'lokka30' ]
 website: 'https://github.com/lokka30/PhantomWorlds'
