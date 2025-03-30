@@ -94,7 +94,13 @@ public class PhantomWorld {
 
     final WorldCreator worldCreator = new WorldCreator(name);
 
-    worldCreator.environment(environment);
+    if(environment.equals(World.Environment.CUSTOM)) {
+
+      worldCreator.environment(World.Environment.NORMAL);
+    } else {
+
+      worldCreator.environment(environment);
+    }
     worldCreator.generateStructures(generateStructures);
     try {
       worldCreator.hardcore(hardcore);
