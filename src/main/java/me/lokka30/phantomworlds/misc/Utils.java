@@ -468,7 +468,8 @@ public class Utils {
 
   public static String defaultWorld() {
 
-    try(final InputStream input = Files.newInputStream(new File(PhantomWorlds.instance().getDataFolder(), "../../server.properties").toPath())) {
+    final String property = stripLeadingSlash(System.getProperty("serverProperties", "server.properties"));
+    try(final InputStream input = Files.newInputStream(new File(PhantomWorlds.instance().getDataFolder(), "../../" + property).toPath())) {
 
       final Properties prop = new Properties();
       prop.load(input);
@@ -477,6 +478,15 @@ public class Utils {
     } catch(final Exception ignore) {
       return "world";
     }
+  }
+
+  public static String stripLeadingSlash(final String input) {
+    final StringBuilder sb = new StringBuilder(input);
+    while(sb.length() > 0 && sb.charAt(0) == '0') {
+
+      sb.deleteCharAt(0);
+    }
+    return sb.toString();
   }
 
   public static boolean isOneSeventeen(final String version) {
