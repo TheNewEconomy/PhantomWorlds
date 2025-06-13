@@ -18,6 +18,7 @@ package me.lokka30.phantomworlds.listeners.player;
  */
 
 import me.lokka30.phantomworlds.PhantomWorlds;
+import me.lokka30.phantomworlds.misc.Utils;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
@@ -45,7 +46,10 @@ public class PlayerChangeWorldListener implements Listener {
   public void onChangeWorld(final PlayerChangedWorldEvent event) {
 
     //Check if this world has a PhantomWorlds managed spawn. If so, teleport the player there.
-    final String spawnPath = "worlds-to-load." + event.getPlayer().getWorld().getName() + ".spawn";
+
+    final String cfgPath = "worlds-to-load." + event.getPlayer().getWorld().getName();
+    final String spawnPath = cfgPath + ".spawn";
+
     if(PhantomWorlds.instance().settings.getConfig().getBoolean("spawning.change", false) && PhantomWorlds.instance().data.getConfig().contains(spawnPath)) {
 
       final double x = PhantomWorlds.instance().data.getConfig().getDouble(spawnPath + ".x", event.getPlayer().getWorld().getSpawnLocation().getX());
@@ -55,12 +59,6 @@ public class PlayerChangeWorldListener implements Listener {
       final float pitch = (float)PhantomWorlds.instance().data.getConfig().getDouble(spawnPath + ".pitch", event.getPlayer().getWorld().getSpawnLocation().getPitch());
 
       event.getPlayer().teleport(new Location(event.getPlayer().getWorld(), x, y, z, yaw, pitch));
-    }
-
-    final String cfgPath = "worlds-to-load." + event.getPlayer().getWorld().getName();
-    if(PhantomWorlds.instance().data.getConfig().contains(cfgPath + ".gameMode") && !event.getPlayer().hasPermission("phantomworlds.world.bypass.gamemode")) {
-      final GameMode mode = GameMode.valueOf(PhantomWorlds.instance().data.getConfig().getString(cfgPath + ".gameMode"));
-      event.getPlayer().setGameMode(mode);
     }
 
     final String cfgPrevPath = "worlds-to-load." + event.getFrom().getName();
@@ -75,19 +73,6 @@ public class PlayerChangeWorldListener implements Listener {
       }
     }
 
-    if(PhantomWorlds.instance().data.getConfig().contains(cfgPath + ".effects") &&
-       PhantomWorlds.instance().data.getConfig().isConfigurationSection(cfgPath + ".effects") && !event.getPlayer().hasPermission("phantomworlds.world.bypass.effects")) {
-
-      for(final String effName : PhantomWorlds.instance().data.getConfig().getConfigurationSection(cfgPath + ".effects").getKeys(false)) {
-        final int duration = PhantomWorlds.instance().data.getConfig().getInt(cfgPath + ".effects." + effName + ".duration", -1);
-        final int amplifier = PhantomWorlds.instance().data.getConfig().getInt(cfgPath + ".effects." + effName + ".amplifier", 1);
-
-        final PotionEffectType type = PhantomWorlds.compatibility().findType(effName);
-        if(type != null) {
-          final PotionEffect effect = new PotionEffect(type, duration, amplifier);
-          event.getPlayer().addPotionEffect(effect);
-        }
-      }
-    }
+    Utils.applyWorldEffects(event.getPlayer(), event.getPlayer().getWorld().getName());
   }
 }

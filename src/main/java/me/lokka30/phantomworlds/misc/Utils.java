@@ -4,11 +4,14 @@ import me.lokka30.microlib.messaging.MessageUtils;
 import me.lokka30.microlib.messaging.MultiMessage;
 import me.lokka30.phantomworlds.PhantomWorlds;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -464,6 +467,31 @@ public class Utils {
       return false;
     }
     return true;
+  }
+
+  public static void applyWorldEffects(final Player player, final String world) {
+
+    final String cfgPath = "worlds-to-load." + world;
+    
+    if(PhantomWorlds.instance().data.getConfig().contains(cfgPath + ".gameMode") && !player.hasPermission("phantomworlds.world.bypass.gamemode")) {
+      final GameMode mode = GameMode.valueOf(PhantomWorlds.instance().data.getConfig().getString(cfgPath + ".gameMode"));
+      player.setGameMode(mode);
+    }
+
+    if(PhantomWorlds.instance().data.getConfig().contains(cfgPath + ".effects") &&
+       PhantomWorlds.instance().data.getConfig().isConfigurationSection(cfgPath + ".effects") && !player.hasPermission("phantomworlds.world.bypass.effects")) {
+
+      for(final String effName : PhantomWorlds.instance().data.getConfig().getConfigurationSection(cfgPath + ".effects").getKeys(false)) {
+        final int duration = PhantomWorlds.instance().data.getConfig().getInt(cfgPath + ".effects." + effName + ".duration", -1);
+        final int amplifier = PhantomWorlds.instance().data.getConfig().getInt(cfgPath + ".effects." + effName + ".amplifier", 1);
+
+        final PotionEffectType type = PhantomWorlds.compatibility().findType(effName);
+        if(type != null) {
+          final PotionEffect effect = new PotionEffect(type, duration, amplifier);
+          player.addPotionEffect(effect);
+        }
+      }
+    }
   }
 
   public static String defaultWorld() {
