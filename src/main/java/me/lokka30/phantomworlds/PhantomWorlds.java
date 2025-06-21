@@ -20,7 +20,7 @@ import me.lokka30.phantomworlds.commands.params.SettingParameter;
 import me.lokka30.phantomworlds.commands.params.WorldFolderParameter;
 import me.lokka30.phantomworlds.commands.utils.WorldFolder;
 import me.lokka30.phantomworlds.listeners.player.PlayerChangeWorldListener;
-import me.lokka30.phantomworlds.listeners.player.PlayerDeathListener;
+import me.lokka30.phantomworlds.listeners.player.PlayerRespawnListener;
 import me.lokka30.phantomworlds.listeners.player.PlayerJoinListener;
 import me.lokka30.phantomworlds.listeners.player.PlayerPortalListener;
 import me.lokka30.phantomworlds.listeners.player.PlayerTeleportListener;
@@ -48,7 +48,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -287,7 +286,7 @@ public class PhantomWorlds extends JavaPlugin {
 
     getLogger().info("Registering listeners...");
     getServer().getPluginManager().registerEvents(new PlayerChangeWorldListener(this), this);
-    getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
+    getServer().getPluginManager().registerEvents(new PlayerRespawnListener(this), this);
     getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
     getServer().getPluginManager().registerEvents(new PlayerPortalListener(this), this);
     getServer().getPluginManager().registerEvents(new PlayerTeleportListener(this), this);

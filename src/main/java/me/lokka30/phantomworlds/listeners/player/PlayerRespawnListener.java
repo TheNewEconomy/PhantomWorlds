@@ -23,7 +23,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 /**
  * PlayerDeathListener
@@ -31,36 +31,35 @@ import org.bukkit.event.entity.PlayerDeathEvent;
  * @author creatorfromhell
  * @since 2.0.5.0
  */
-public class PlayerDeathListener implements Listener {
+public class PlayerRespawnListener implements Listener {
 
   final PhantomWorlds plugin;
 
-  public PlayerDeathListener(final PhantomWorlds plugin) {
+  public PlayerRespawnListener(final PhantomWorlds plugin) {
 
     this.plugin = plugin;
   }
 
   @EventHandler(ignoreCancelled = true)
-  public void onDeath(final PlayerDeathEvent event) {
-
-    if(event.getEntity().getRespawnLocation() != null) {
-      return;
-    }
+  public void onDeath(final PlayerRespawnEvent event) {
 
     final boolean defaultOnNoBed = PhantomWorlds.instance().settings.getConfig().getBoolean("spawning.respawn-default-world", false);
 
-    if(!PhantomWorlds.instance().settings.getConfig().getBoolean("spawning.respawn-world", false)
-       && !defaultOnNoBed) {
+    if(event.isBedSpawn() && !defaultOnNoBed) {
+      return;
+    }
+
+    if(!PhantomWorlds.instance().settings.getConfig().getBoolean("spawning.respawn-world", false)) {
       return;
     }
 
     final String spawnWorld = PhantomWorlds.instance().settings.getConfig().getString("spawning.default-world", "world");
-    final World sWorld = (defaultOnNoBed)? Bukkit.getWorld(spawnWorld) : event.getEntity().getWorld();
+    final World sWorld = (defaultOnNoBed)? Bukkit.getWorld(spawnWorld) : event.getRespawnLocation().getWorld();
     if(sWorld == null) {
       plugin.getLogger().warning("Configured spawn world doesn't exist! Not changing player spawn location.");
       return;
     }
 
-    event.getEntity().teleport(Utils.parseSpawn(sWorld));
+    event.setRespawnLocation(Utils.parseSpawn(sWorld));
   }
 }
