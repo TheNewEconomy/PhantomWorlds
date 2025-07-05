@@ -13,6 +13,8 @@ website: 'https://github.com/lokka30/PhantomWorlds'
 main: 'me.lokka30.phantomworlds.PhantomWorlds'
 api-version: '1.13'
 load: STARTUP
+#Has to be included for folia support
+folia-supported: true
 
 softdepend:
   - PlaceholderAPI

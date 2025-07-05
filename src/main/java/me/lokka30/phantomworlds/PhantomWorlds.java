@@ -81,7 +81,7 @@ public class PhantomWorlds extends JavaPlugin {
   protected LiteCommands<?> command;
   protected FoliaLib folia;
 
-  private BukkitTask backupService = null;
+  private BackupScheduler backupService = null;
 
   /**
    * If you have contributed code to the plugin, add your name to the end of this list! :)
@@ -157,13 +157,16 @@ public class PhantomWorlds extends JavaPlugin {
     checkCompatibility();
     loadFiles();
 
+    this.folia = new FoliaLib(this);
+
     registerCommands();
     registerListeners();
     miscStartupProcedures();
 
     if(settings.getConfig().getBoolean("backup-scheduler", true)) {
       getLogger().info("Starting up Backup scheduler...");
-      backupService = new BackupScheduler().runTaskTimerAsynchronously(this, settings.getConfig().getInt("backup-delay", 600) * 20L, settings.getConfig().getInt("backup-delay", 600) * 20L);
+      backupService = new BackupScheduler();
+      backupService.start(settings.getConfig().getInt("backup-delay", 600) * 20L, settings.getConfig().getInt("backup-delay", 600) * 20L);
     }
 
     getLogger().info("Start-up complete (took " + timer.getDuration() + "ms)");
@@ -186,7 +189,7 @@ public class PhantomWorlds extends JavaPlugin {
 
     if(backupService != null) {
       getLogger().info("Shutting down backup scheduler...");
-      backupService.cancel();
+      backupService.stop();
     }
 
     getLogger().info("Shut-down complete (took " + timer.getDuration() + "ms)");

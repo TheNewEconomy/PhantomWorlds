@@ -17,6 +17,7 @@ package me.lokka30.phantomworlds.scheduler;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 import me.lokka30.phantomworlds.PhantomWorlds;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -28,7 +29,9 @@ import org.bukkit.scheduler.BukkitRunnable;
  * @author creatorfromhell
  * @since 2.0.5.0
  */
-public class BackupScheduler extends BukkitRunnable {
+public class BackupScheduler implements Runnable {
+
+  private WrappedTask task;
 
   /**
    * When an object implementing interface {@code Runnable} is used to create a thread, starting the
@@ -57,5 +60,19 @@ public class BackupScheduler extends BukkitRunnable {
       }
     }
     PhantomWorlds.logger().info("World Backup Task has completed!");
+  }
+
+  public void start(final long delay, final long period) {
+    task = PhantomWorlds.instance().folia().getScheduler().runTimerAsync(this, delay, period);
+  }
+
+  public void stop() {
+    try {
+      if(task != null && !task.isCancelled()) {
+
+        task.cancel();
+      }
+    } catch(final IllegalStateException ignore) {
+    }
   }
 }
