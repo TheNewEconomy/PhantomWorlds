@@ -20,7 +20,6 @@ package me.lokka30.phantomworlds.commands.sub.set;
 import me.lokka30.microlib.messaging.MultiMessage;
 import me.lokka30.phantomworlds.PhantomWorlds;
 import me.lokka30.phantomworlds.misc.Utils;
-import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

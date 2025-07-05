@@ -21,7 +21,6 @@ import com.tcoded.folialib.wrapper.task.WrappedTask;
 import me.lokka30.phantomworlds.PhantomWorlds;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * BackupScheduler

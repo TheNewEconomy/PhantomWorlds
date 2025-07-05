@@ -19,12 +19,10 @@ package me.lokka30.phantomworlds.listeners.player;
 
 import me.lokka30.phantomworlds.PhantomWorlds;
 import me.lokka30.phantomworlds.misc.Utils;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 /**
