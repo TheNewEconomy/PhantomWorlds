@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystemException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -155,7 +156,10 @@ public class Utils {
                                                   );
 
     // time to unload the world
-    Bukkit.unloadWorld(world, true);
+    try {
+      Bukkit.unloadWorld(world, true);
+    } catch(final Exception ignore) {
+    }
   }
 
   /**
@@ -262,7 +266,8 @@ public class Utils {
       zos.close();
       fos.flush();
     } catch(final Exception e) {
-      e.printStackTrace();
+      //e.printStackTrace();
+      PhantomWorlds.logger().warning("Exception while zipping " + sourceFolder.getName() + " to " + destinationZipFile);
     }
   }
 
