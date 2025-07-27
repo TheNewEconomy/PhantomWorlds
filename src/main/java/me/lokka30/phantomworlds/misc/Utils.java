@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -431,14 +432,11 @@ public class Utils {
                          )));
 
     final String key = targetPlayer.getUniqueId() + "-" + world.getName();
-    if(PhantomWorlds.instance().lastLocations().containsKey(key)) {
 
-      System.out.println("sending to last location.");
-      targetPlayer.teleport(PhantomWorlds.instance().lastLocations().get(key));
-      return;
-    }
+    final Location location = (PhantomWorlds.instance().lastLocations().containsKey(key))?
+                              PhantomWorlds.instance().lastLocations().get(key) : parseSpawn(world);
 
-    targetPlayer.teleport(parseSpawn(world));
+    teleport(targetPlayer, location);
   }
 
   public static Location parseSpawn(final World world) {
@@ -520,6 +518,20 @@ public class Utils {
       sb.deleteCharAt(0);
     }
     return sb.toString();
+  }
+
+  public static void teleport(final Player targetPlayer, final Location location) {
+
+    try {
+      final Method teleportAsync = targetPlayer.getClass().getMethod("teleportAsync", Location.class);
+      teleportAsync.invoke(targetPlayer, location);
+    } catch (final NoSuchMethodException | NoSuchMethodError ignored) {
+      //Fallback if teleportAsync doesn't exist
+      targetPlayer.teleport(location);
+    } catch (final Exception ignored) {
+      //Catch any reflection invocation errors and fallback
+      targetPlayer.teleport(location);
+    }
   }
 
   public static boolean isOneSeventeen(final String version) {

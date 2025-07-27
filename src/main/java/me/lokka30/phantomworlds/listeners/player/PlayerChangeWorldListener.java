@@ -56,7 +56,7 @@ public class PlayerChangeWorldListener implements Listener {
       final float yaw = (float)PhantomWorlds.instance().data.getConfig().getDouble(spawnPath + ".yaw", event.getPlayer().getWorld().getSpawnLocation().getYaw());
       final float pitch = (float)PhantomWorlds.instance().data.getConfig().getDouble(spawnPath + ".pitch", event.getPlayer().getWorld().getSpawnLocation().getPitch());
 
-      event.getPlayer().teleport(new Location(event.getPlayer().getWorld(), x, y, z, yaw, pitch));
+      Utils.teleport(event.getPlayer(), new Location(event.getPlayer().getWorld(), x, y, z, yaw, pitch));
     }
 
     final String cfgPrevPath = "worlds-to-load." + event.getFrom().getName();
