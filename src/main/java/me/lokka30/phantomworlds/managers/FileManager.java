@@ -162,7 +162,7 @@ public class FileManager {
    * @since v2.0.0
    */
   public enum PWFile {
-    SETTINGS(6),
+    SETTINGS(7),
     ADVANCED_SETTINGS(1),
     MESSAGES(12),
     DATA(2);

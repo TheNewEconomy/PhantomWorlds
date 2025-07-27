@@ -46,5 +46,5 @@ backup-delay: 600
 
 # Do not touch anything here unless you know what you are doing.
 advanced:
-  file-version: 6
+  file-version: 7
   generated-with: '${project.version}'
