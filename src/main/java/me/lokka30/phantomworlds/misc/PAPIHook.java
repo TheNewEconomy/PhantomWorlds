@@ -57,24 +57,24 @@ public class PAPIHook extends PlaceholderExpansion {
 
     final String[] args = params.split("_");
 
-    //%pw_name%
+    //%pworlds_name%
     if(args[0].equalsIgnoreCase("name")) {
 
       return player.getWorld().getName();
     }
 
-    //%pw_time%
+    //%pworlds_time%
     if(args[0].equalsIgnoreCase("time")) {
 
       return String.valueOf(player.getWorld().getTime());
     }
 
-    //%pw_period%
+    //%pworlds_period%
     if(args[0].equalsIgnoreCase("period")) {
       return period(player.getWorld().getTime());
     }
 
-    //%pw_environment%
+    //%pworlds_environment%
     if(args[0].equalsIgnoreCase("environment")) {
       return player.getWorld().getEnvironment().name();
     }
