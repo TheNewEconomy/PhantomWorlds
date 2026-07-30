@@ -6,7 +6,7 @@
 
     <groupId>me.lokka30</groupId>
     <artifactId>PhantomWorlds</artifactId>
-    <version>2.1.0</version>
+    <version>2.2.0</version>
 
     <name>PhantomWorlds</name>
     <description>The Robust World Manager for Minecraft Servers</description>
@@ -109,6 +109,11 @@
             <version>3.3.4</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.vdurmont</groupId>
+            <artifactId>semver4j</artifactId>
+            <version>3.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -161,6 +166,10 @@
                             <pattern>com.tcoded.folialib</pattern>
                             <shadedPattern>${phantom.relocation}.folia</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>com.vdurmont.semver4j</pattern>
+                            <shadedPattern>${phantom.relocation}.semver4j</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
@@ -173,6 +182,7 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <artifactSet>
                                 <includes>
+                                    <include>com.vdurmont:semver4j</include>
                                     <pattern>dev.dejvokep.boostedyaml:*</pattern>
                                     <include>org.bstats:*</include>
                                     <include>com.github.lokka30:MicroLib</include>

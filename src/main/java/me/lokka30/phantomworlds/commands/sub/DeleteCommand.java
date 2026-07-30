@@ -64,6 +64,7 @@ public class DeleteCommand {
                                            true),
               new MultiMessage.Placeholder("world", world.getName(), false)
                                                                                                        ))).send(sender);
+      return;
     }
 
     (new MultiMessage(

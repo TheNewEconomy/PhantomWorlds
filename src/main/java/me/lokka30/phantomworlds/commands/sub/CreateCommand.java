@@ -21,6 +21,7 @@ import me.lokka30.microlib.maths.QuickTimer;
 import me.lokka30.microlib.messaging.MultiMessage;
 import me.lokka30.phantomworlds.PhantomWorlds;
 import me.lokka30.phantomworlds.misc.Utils;
+import me.lokka30.phantomworlds.misc.WorldFolders;
 import me.lokka30.phantomworlds.world.PhantomWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
@@ -45,7 +46,7 @@ public class CreateCommand {
 
   public static void onCommand(final CommandSender sender, final String worldName, final World.Environment environment, final List<String> settings) {
 
-    if(Bukkit.getWorld(worldName) != null) {
+    if(Bukkit.getWorld(worldName) != null || WorldFolders.find(worldName) != null) {
       (new MultiMessage(
               PhantomWorlds.instance().messages.getConfig()
                       .getStringList("command.phantomworlds.subcommands.create.already-loaded"),
@@ -133,7 +134,22 @@ public class CreateCommand {
           generatorSettings = value.toString();
           break;
         case "gamemode":
-          mode = GameMode.valueOf(value.toString());
+          try {
+            mode = GameMode.valueOf(value.toString().toUpperCase(Locale.ROOT));
+          } catch(final IllegalArgumentException ex) {
+            (new MultiMessage(
+                    PhantomWorlds.instance().messages.getConfig().getStringList(
+                            "command.phantomworlds.subcommands.create.options.invalid-value"),
+                    Arrays.asList(
+                            new MultiMessage.Placeholder("prefix", PhantomWorlds.instance().messages.getConfig()
+                                    .getString("common.prefix", "&b&lPhantomWorlds: &7"), true),
+                            new MultiMessage.Placeholder("value", value.toString(), false),
+                            new MultiMessage.Placeholder("option", option, false),
+                            new MultiMessage.Placeholder("expected", "gamemode",
+                                                         false)
+                                 ))).send(sender);
+            return;
+          }
           break;
         case "hardcore":
 
@@ -309,6 +325,11 @@ public class CreateCommand {
                          ))).send(sender);
 
     pworld.create();
+
+    if(Bukkit.getWorld(worldName) == null) {
+      // send failure-loading
+      return;
+    }
 
     (new MultiMessage(
             PhantomWorlds.instance().messages.getConfig()

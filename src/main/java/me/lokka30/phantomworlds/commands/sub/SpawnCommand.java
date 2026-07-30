@@ -32,9 +32,17 @@ public class SpawnCommand {
 
   public static void onCommand(final CommandSender sender, final World world, final Player player) {
 
-    if(!(sender instanceof Player) && !Utils.checkWorld(sender, "command.phantomworlds.subcommands.spawn.usage", world)) {
+    if(world == null && !(sender instanceof Player)) {
+      Utils.checkWorld(sender, "...", null);
       return;
     }
-    Utils.teleportToWorld(sender, "spawn", "spawn", (player == null)? sender.getName() : player.getName(), (sender instanceof Player && world == null)? ((Player)sender).getWorld().getName() : world.getName());
+
+    if(!Utils.checkWorld(sender, "command.phantomworlds.subcommands.spawn.usage", world)) {
+      return;
+    }
+
+    final World targetWorld = (world != null)? world : ((Player)sender).getWorld();
+
+    Utils.teleportToWorld(sender, "spawn", "spawn", (player == null)? sender.getName() : player.getName(), targetWorld.getName());
   }
 }

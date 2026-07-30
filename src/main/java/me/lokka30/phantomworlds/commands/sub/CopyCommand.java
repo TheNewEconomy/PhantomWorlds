@@ -21,6 +21,7 @@ import me.lokka30.microlib.messaging.MultiMessage;
 import me.lokka30.phantomworlds.PhantomWorlds;
 import me.lokka30.phantomworlds.commands.utils.WorldFolder;
 import me.lokka30.phantomworlds.misc.WorldCopyResponse;
+import me.lokka30.phantomworlds.misc.WorldFolders;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
@@ -51,7 +52,7 @@ public class CopyCommand {
       return;
     }
 
-    if(Bukkit.getWorld(newWorld) != null) {
+    if(Bukkit.getWorld(newWorld) != null || WorldFolders.find(newWorld) != null) {
       (new MultiMessage(
               PhantomWorlds.instance().messages.getConfig()
                       .getStringList("command.phantomworlds.subcommands.create.already-loaded"),

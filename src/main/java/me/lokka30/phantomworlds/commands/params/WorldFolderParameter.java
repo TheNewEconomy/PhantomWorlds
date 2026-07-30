@@ -24,6 +24,7 @@ import dev.rollczi.litecommands.invocation.Invocation;
 import dev.rollczi.litecommands.suggestion.SuggestionContext;
 import dev.rollczi.litecommands.suggestion.SuggestionResult;
 import me.lokka30.phantomworlds.commands.utils.WorldFolder;
+import me.lokka30.phantomworlds.misc.WorldFolders;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
@@ -42,29 +43,18 @@ public class WorldFolderParameter extends ArgumentResolver<CommandSender, WorldF
   @Override
   protected ParseResult<WorldFolder> parse(final Invocation<CommandSender> invocation, final Argument<WorldFolder> context, final String argument) {
 
-    final File directory = Bukkit.getWorldContainer();
-    final File worldDir = new File(directory, argument);
+    final File worldDirectory = WorldFolders.find(argument);
 
-    if(!worldDir.exists()) {
+    if(worldDirectory == null || !worldDirectory.exists()) {
       return ParseResult.failure("Invalid world directory specified!");
     }
+
     return ParseResult.success(new WorldFolder(argument));
   }
 
   @Override
   public SuggestionResult suggest(final Invocation<CommandSender> invocation, final Argument<WorldFolder> argument, final SuggestionContext context) {
 
-    final List<String> folders = new ArrayList<>();
-    final File directory = Bukkit.getWorldContainer();
-
-    if(directory.exists()) {
-      for(final File file : directory.listFiles()) {
-        final File levelDat = new File(file, "level.dat");
-        if(file.isDirectory() && levelDat.exists()) {
-          folders.add(file.getName());
-        }
-      }
-    }
-    return SuggestionResult.of(folders);
+    return SuggestionResult.of(new ArrayList<>(WorldFolders.availableWorldNames()));
   }
 }

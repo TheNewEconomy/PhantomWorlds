@@ -19,6 +19,7 @@ package me.lokka30.phantomworlds.commands.sub;
 
 import me.lokka30.microlib.messaging.MultiMessage;
 import me.lokka30.phantomworlds.PhantomWorlds;
+import me.lokka30.phantomworlds.misc.WorldFolders;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
@@ -48,7 +49,6 @@ public class ListCommand {
 
     final HashSet<String> loaded = new HashSet<>();
 
-    //TODO: archived, last backup times.
     for(final World world : Bukkit.getWorlds()) {
       loaded.add(world.getName());
     }
@@ -65,14 +65,10 @@ public class ListCommand {
     }
 
     final HashSet<String> unloaded = new HashSet<>();
-    final File directory = Bukkit.getWorldContainer();
 
-    for(final File file : directory.listFiles()) {
-      if(file.isDirectory() && !loaded.contains(file.getName())) {
-        final File levelDat = new File(file, "level.dat");
-        if(levelDat.exists()) {
-          unloaded.add(file.getName());
-        }
+    for(final String worldName : WorldFolders.availableWorldNames()) {
+      if(!loaded.contains(worldName)) {
+        unloaded.add(worldName);
       }
     }
 
@@ -98,9 +94,15 @@ public class ListCommand {
 
     final HashSet<String> archived = new HashSet<>();
     final File dir = new File(PhantomWorlds.instance().getDataFolder(), PhantomWorlds.BACKUP_FOLDER);
-    for(final File file : dir.listFiles()) {
-      if(file.isDirectory() && !loaded.contains(file.getName()) && !unloaded.contains(file.getName())) {
-        archived.add(file.getName());
+
+    //TODO: archived, last backup times.
+    final File[] archivedFolders = dir.listFiles(File::isDirectory);
+    if(archivedFolders != null) {
+      for(final File file : archivedFolders) {
+        if(!loaded.contains(file.getName())
+           && !unloaded.contains(file.getName())) {
+          archived.add(file.getName());
+        }
       }
     }
 
